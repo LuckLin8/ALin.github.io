@@ -1,5 +1,7 @@
 {
-    "title": "Summary",
+    "title": "学习笔记",
+    "author" : "ALin",
+    "description" : "ALin的学习博客",
     "links": {
         "sidebar": {
             "Home": "https://ALin.github.io"
@@ -15,6 +17,7 @@
         "-highlight",
         "-lunr", 
         "-search", 
+        "theme-comscore",
         "search-pro",
         "splitter"
     ],
