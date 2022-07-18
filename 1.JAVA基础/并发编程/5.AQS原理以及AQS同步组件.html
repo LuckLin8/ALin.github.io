@@ -1,0 +1,1624 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5.AQS原理以及AQS同步组件 · 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="ALin">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-solarizedlight.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="6.阻塞队列.html" />
+    
+    
+    <link rel="prev" href="4.CountDownLatch、CyclicBarrier、Semaphore.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://lucklin8.github.io/ALin.github.io/" target="_blank" class="custom-link">Home</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    1.JAVA基础
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" >
+            
+                <span>
+            
+                    
+                    JAVA容器
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="../JAVA容器/1.ArrayList与LinkedList.html">
+            
+                <a href="../JAVA容器/1.ArrayList与LinkedList.html">
+            
+                    
+                    1.ArrayList与LinkedList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="../JAVA容器/2.HashTable.html">
+            
+                <a href="../JAVA容器/2.HashTable.html">
+            
+                    
+                    2.HashTable
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../JAVA容器/3.HashMap.html">
+            
+                <a href="../JAVA容器/3.HashMap.html">
+            
+                    
+                    3.HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="../JAVA容器/4.ConcurrentHashMap.html">
+            
+                <a href="../JAVA容器/4.ConcurrentHashMap.html">
+            
+                    
+                    4.ConcurrentHashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../JVM/1.深入理解JVM.html">
+            
+                <a href="../JVM/1.深入理解JVM.html">
+            
+                    
+                    1.深入理解JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../JVM/2.JVM常见问题.html">
+            
+                <a href="../JVM/2.JVM常见问题.html">
+            
+                    
+                    2.JVM常见问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" >
+            
+                <span>
+            
+                    
+                    并发编程
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="1.JMM内存模型和volatile.html">
+            
+                <a href="1.JMM内存模型和volatile.html">
+            
+                    
+                    1.JMM内存模型和volatile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="2.CAS.html">
+            
+                <a href="2.CAS.html">
+            
+                    
+                    2.CAS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="3.锁.html">
+            
+                <a href="3.锁.html">
+            
+                    
+                    3.锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="4.CountDownLatch、CyclicBarrier、Semaphore.html">
+            
+                <a href="4.CountDownLatch、CyclicBarrier、Semaphore.html">
+            
+                    
+                    4.CountDownLatch、CyclicBarrier、Semaphore
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3.5" data-path="5.AQS原理以及AQS同步组件.html">
+            
+                <a href="5.AQS原理以及AQS同步组件.html">
+            
+                    
+                    5.AQS原理以及AQS同步组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="6.阻塞队列.html">
+            
+                <a href="6.阻塞队列.html">
+            
+                    
+                    6.阻塞队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.7" data-path="7.Synchronized与锁升级.html">
+            
+                <a href="7.Synchronized与锁升级.html">
+            
+                    
+                    7.Synchronized与锁升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="8.Synchronized与ReentrantLock.html">
+            
+                <a href="8.Synchronized与ReentrantLock.html">
+            
+                    
+                    8.Synchronized与ReentrantLock
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="9.ThreadPoolExecutor.html">
+            
+                <a href="9.ThreadPoolExecutor.html">
+            
+                    
+                    9.ThreadPoolExecutor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="x.DeadLock.html">
+            
+                <a href="x.DeadLock.html">
+            
+                    
+                    x.DeadLock
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="x1.ThreadLocal.html">
+            
+                <a href="x1.ThreadLocal.html">
+            
+                    
+                    x1.ThreadLocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    2.分布式
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../2.分布式/1.分布式事务.html">
+            
+                <a href="../../2.分布式/1.分布式事务.html">
+            
+                    
+                    1.分布式事务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    3.Mysql原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../3.Mysql原理/1.索引失效和索引优化.html">
+            
+                <a href="../../3.Mysql原理/1.索引失效和索引优化.html">
+            
+                    
+                    1.索引失效和索引优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../3.Mysql原理/2.B+Tree与Innodb.html">
+            
+                <a href="../../3.Mysql原理/2.B+Tree与Innodb.html">
+            
+                    
+                    2.B+Tree与Innodb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../3.Mysql原理/3.Mysql如何实现事务.html">
+            
+                <a href="../../3.Mysql原理/3.Mysql如何实现事务.html">
+            
+                    
+                    3.Mysql如何实现事务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../3.Mysql原理/4.MVCC.html">
+            
+                <a href="../../3.Mysql原理/4.MVCC.html">
+            
+                    
+                    4.MVCC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../3.Mysql原理/5.Mysql脏读、不可重复读、幻读和MVCC.html">
+            
+                <a href="../../3.Mysql原理/5.Mysql脏读、不可重复读、幻读和MVCC.html">
+            
+                    
+                    5.Mysql脏读、不可重复读、幻读和MVCC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../3.Mysql原理/6.Mysql锁.html">
+            
+                <a href="../../3.Mysql原理/6.Mysql锁.html">
+            
+                    
+                    6.Mysql锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../3.Mysql原理/7.Explain.html">
+            
+                <a href="../../3.Mysql原理/7.Explain.html">
+            
+                    
+                    7.Explain
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    4.Redis原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" >
+            
+                <span>
+            
+                    
+                    常见问题
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../4.Redis原理/常见问题/1.热key击穿穿透雪崩.html">
+            
+                <a href="../../4.Redis原理/常见问题/1.热key击穿穿透雪崩.html">
+            
+                    
+                    1.热key击穿穿透雪崩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../4.Redis原理/常见问题/2.redis分布式锁.html">
+            
+                <a href="../../4.Redis原理/常见问题/2.redis分布式锁.html">
+            
+                    
+                    2.redis分布式锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="../../4.Redis原理/常见问题/3.如何保证缓存一致性.html">
+            
+                <a href="../../4.Redis原理/常见问题/3.如何保证缓存一致性.html">
+            
+                    
+                    3.如何保证缓存一致性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.4" data-path="../../4.Redis原理/常见问题/4.过期删除策略和内存淘汰策略.html">
+            
+                <a href="../../4.Redis原理/常见问题/4.过期删除策略和内存淘汰策略.html">
+            
+                    
+                    4.过期删除策略和内存淘汰策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <span>
+            
+                    
+                    数据结构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../4.Redis原理/数据结构/1.简单动态字符串.html">
+            
+                <a href="../../4.Redis原理/数据结构/1.简单动态字符串.html">
+            
+                    
+                    1.简单动态字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../4.Redis原理/数据结构/2.链表.html">
+            
+                <a href="../../4.Redis原理/数据结构/2.链表.html">
+            
+                    
+                    2.链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../4.Redis原理/数据结构/3.字典.html">
+            
+                <a href="../../4.Redis原理/数据结构/3.字典.html">
+            
+                    
+                    3.字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../../4.Redis原理/数据结构/4.跳跃表.html">
+            
+                <a href="../../4.Redis原理/数据结构/4.跳跃表.html">
+            
+                    
+                    4.跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="../../4.Redis原理/数据结构/5.整数集合.html">
+            
+                <a href="../../4.Redis原理/数据结构/5.整数集合.html">
+            
+                    
+                    5.整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="../../4.Redis原理/数据结构/6.压缩列表.html">
+            
+                <a href="../../4.Redis原理/数据结构/6.压缩列表.html">
+            
+                    
+                    6.压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.7" data-path="../../4.Redis原理/数据结构/7.对象.html">
+            
+                <a href="../../4.Redis原理/数据结构/7.对象.html">
+            
+                    
+                    7.对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" >
+            
+                <span>
+            
+                    
+                    核心设计
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../4.Redis原理/核心设计/1.redis核心设计概述.html">
+            
+                <a href="../../4.Redis原理/核心设计/1.redis核心设计概述.html">
+            
+                    
+                    1.redis核心设计概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../4.Redis原理/核心设计/2.redis为什么这么快.html">
+            
+                <a href="../../4.Redis原理/核心设计/2.redis为什么这么快.html">
+            
+                    
+                    2.redis为什么这么快
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../4.Redis原理/核心设计/3.AOF日志.html">
+            
+                <a href="../../4.Redis原理/核心设计/3.AOF日志.html">
+            
+                    
+                    3.AOF日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../4.Redis原理/核心设计/4.RDB日志.html">
+            
+                <a href="../../4.Redis原理/核心设计/4.RDB日志.html">
+            
+                    
+                    4.RDB日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.5" data-path="../../4.Redis原理/核心设计/5.主从库如何保证一致.html">
+            
+                <a href="../../4.Redis原理/核心设计/5.主从库如何保证一致.html">
+            
+                    
+                    5.主从库如何保证一致
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.6" data-path="../../4.Redis原理/核心设计/6.哨兵机制.html">
+            
+                <a href="../../4.Redis原理/核心设计/6.哨兵机制.html">
+            
+                    
+                    6.哨兵机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.7" data-path="../../4.Redis原理/核心设计/7.哨兵集群.html">
+            
+                <a href="../../4.Redis原理/核心设计/7.哨兵集群.html">
+            
+                    
+                    7.哨兵集群
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    5.MQ
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" >
+            
+                <span>
+            
+                    
+                    Kafka
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../../5.MQ/kafka/1.kafka.html">
+            
+                <a href="../../5.MQ/kafka/1.kafka.html">
+            
+                    
+                    1.kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../5.MQ/1.mq选型.html">
+            
+                <a href="../../5.MQ/1.mq选型.html">
+            
+                    
+                    1.mq选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../5.MQ/2.如何保证mq的高可用.html">
+            
+                <a href="../../5.MQ/2.如何保证mq的高可用.html">
+            
+                    
+                    2.如何保证mq的高可用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../../5.MQ/3.事务性消息.html">
+            
+                <a href="../../5.MQ/3.事务性消息.html">
+            
+                    
+                    3.事务性消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    6.Spring
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../6.Spring/1.Spring的Bean的生命周期.html">
+            
+                <a href="../../6.Spring/1.Spring的Bean的生命周期.html">
+            
+                    
+                    1.Spring的Bean的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../../6.Spring/2.Spring的Aop原理.html">
+            
+                <a href="../../6.Spring/2.Spring的Aop原理.html">
+            
+                    
+                    2.Spring的Aop原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../../6.Spring/3.三级缓存解决循环依赖.html">
+            
+                <a href="../../6.Spring/3.三级缓存解决循环依赖.html">
+            
+                    
+                    3.三级缓存解决循环依赖
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    7.Netty
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../../7.Netty/1.传统IO.html">
+            
+                <a href="../../7.Netty/1.传统IO.html">
+            
+                    
+                    1.传统IO
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../../7.Netty/2.Netty实战.html">
+            
+                <a href="../../7.Netty/2.Netty实战.html">
+            
+                    
+                    2.Netty实战
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../../7.Netty/3.Netty实现rpc.html">
+            
+                <a href="../../7.Netty/3.Netty实现rpc.html">
+            
+                    
+                    3.Netty实现rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    8.大数据相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" >
+            
+                <span>
+            
+                    
+                    Flink
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="../../8.大数据相关/flink/1.docker部署flink.html">
+            
+                <a href="../../8.大数据相关/flink/1.docker部署flink.html">
+            
+                    
+                    1.docker部署flink
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.2" data-path="../../8.大数据相关/flink/2.运行时架构.html">
+            
+                <a href="../../8.大数据相关/flink/2.运行时架构.html">
+            
+                    
+                    2.运行时架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" >
+            
+                <span>
+            
+                    
+                    Hive
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../../8.大数据相关/hive/hive基础.html">
+            
+                <a href="../../8.大数据相关/hive/hive基础.html">
+            
+                    
+                    hive基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" >
+            
+                <span>
+            
+                    
+                    实时数仓
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../../8.大数据相关/实时数仓/随记1.html">
+            
+                <a href="../../8.大数据相关/实时数仓/随记1.html">
+            
+                    
+                    随记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    x.问题总结
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../x.问题总结/多线程使用不当OOM排查.html">
+            
+                <a href="../../x.问题总结/多线程使用不当OOM排查.html">
+            
+                    
+                    多线程使用不当OOM排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../../x.问题总结/父子线程公用线程池线上事故.html">
+            
+                <a href="../../x.问题总结/父子线程公用线程池线上事故.html">
+            
+                    
+                    父子线程公用线程池线上事故
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >5.AQS原理以及AQS同步组件</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><ul><li><span class="title-icon "></span><a href="#aqs&#x6838;&#x5FC3;&#x601D;&#x60F3;"><b>1.1.1. </b>AQS&#x6838;&#x5FC3;&#x601D;&#x60F3;</a></li></ul><li><span class="title-icon "></span><a href="#java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;"><b>1.2. </b>java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;</a></li><li><span class="title-icon "></span><a href="#abstractqueuedsynchronizeraqs"><b>1.3. </b>AbstractQueuedSynchronizer(AQS)</a></li><ul><li><span class="title-icon "></span><a href="#&#x72B6;&#x6001;"><b>1.3.1. </b>&#x72B6;&#x6001;</a></li><li><span class="title-icon "></span><a href="#&#x961F;&#x5217;"><b>1.3.2. </b>&#x961F;&#x5217;</a></li><li><span class="title-icon "></span><a href="#cas&#x64CD;&#x4F5C;"><b>1.3.3. </b>CAS&#x64CD;&#x4F5C;</a></li></ul><li><span class="title-icon "></span><a href="#reentrantlock&#x6E90;&#x7801;&#x5206;&#x6790;"><b>1.4. </b>ReentrantLock&#x6E90;&#x7801;&#x5206;&#x6790;</a></li><ul><li><span class="title-icon "></span><a href="#&#x521D;&#x59CB;&#x5316;"><b>1.4.1. </b>&#x521D;&#x59CB;&#x5316;</a></li><li><span class="title-icon "></span><a href="#lock&#x65B9;&#x6CD5;"><b>1.4.2. </b>lock()&#x65B9;&#x6CD5;</a></li></ul><li><span class="title-icon "></span><a href="#semaphore&#x4FE1;&#x53F7;&#x91CF;-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;"><b>1.5. </b>Semaphore(&#x4FE1;&#x53F7;&#x91CF;)-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;</a></li><li><span class="title-icon "></span><a href="#countdownlatch-&#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;"><b>1.6. </b>CountDownLatch &#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;</a></li><ul><li><span class="title-icon "></span><a href="#countdownlatch-&#x7684;&#x4E0D;&#x8DB3;"><b>1.6.1. </b>CountDownLatch &#x7684;&#x4E0D;&#x8DB3;</a></li></ul><li><span class="title-icon "></span><a href="#cyclicbarrier&#x5FAA;&#x73AF;&#x6805;&#x680F;"><b>1.7. </b>CyclicBarrier(&#x5FAA;&#x73AF;&#x6805;&#x680F;)</a></li></ul></ul></div><a href="#" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h3 id="aqs&#x6838;&#x5FC3;&#x601D;&#x60F3;"><a name="aqs&#x6838;&#x5FC3;&#x601D;&#x60F3;" class="anchor-navigation-ex-anchor" href="#aqs&#x6838;&#x5FC3;&#x601D;&#x60F3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. AQS&#x6838;&#x5FC3;&#x601D;&#x60F3;</h3>
+<p>&#x5982;&#x679C;&#x88AB;&#x8BF7;&#x6C42;&#x7684;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#x7A7A;&#x95F2;&#xFF0C;&#x5219;&#x5C06;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x8D44;&#x6E90;&#x7684;&#x7EBF;&#x7A0B;&#x8BBE;&#x7F6E;&#x4E3A;&#x6709;&#x6548;&#x7684;&#x5DE5;&#x4F5C;&#x7EBF;&#x7A0B;&#xFF0C;&#x5E76;&#x4E14;&#x5C06;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#x8BBE;&#x7F6E;&#x4E3A;&#x9501;&#x5B9A;&#x72B6;&#x6001;&#x3002;&#x5982;&#x679C;&#x88AB;&#x8BF7;&#x6C42;&#x7684;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x4E00;&#x5957;&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x7B49;&#x5F85;&#x4EE5;&#x53CA;&#x88AB;&#x5524;&#x9192;&#x65F6;&#x9501;&#x5206;&#x914D;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x8FD9;&#x4E2A;&#x673A;&#x5236; AQS &#x662F;&#x7528; CLH &#x961F;&#x5217;&#x9501;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x5373;&#x5C06;&#x6682;&#x65F6;&#x83B7;&#x53D6;&#x4E0D;&#x5230;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x52A0;&#x5165;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x3002;</p>
+<p><strong>AQS&#xFF08;AbstractQueuedSynchronizer&#xFF09;</strong>&#x662F;JAVA&#x4E2D;&#x4F17;&#x591A;&#x9501;&#x4EE5;&#x53CA;&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7684;&#x57FA;&#x7840;&#xFF0C;&#x5176;&#x5E95;&#x5C42;&#x91C7;&#x7528;<strong>&#x4E50;&#x89C2;&#x9501;</strong>&#xFF0C;&#x5927;&#x91CF;&#x4F7F;&#x7528;&#x4E86;<strong>CAS</strong>&#x64CD;&#x4F5C;&#xFF0C;&#x800C;&#x4E14;&#x5728;&#x51B2;&#x7A81;&#x65F6;&#xFF0C;&#x91C7;&#x7528;<strong>&#x81EA;&#x65CB;</strong>&#x65B9;&#x5F0F;&#x91CD;&#x8BD5;&#xFF0C;&#x4EE5;&#x5B9E;&#x73B0;&#x8F7B;&#x91CF;&#x7EA7;&#x548C;&#x9AD8;&#x6548;&#x5730;&#x83B7;&#x53D6;&#x9501;</p>
+<blockquote>
+<p>AQS&#x4E2D;&#x5B9E;&#x73B0;&#x4E86;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x6846;&#x67B6;&#xFF0C;&#x9501;&#x7684;&#x5B9E;&#x9645;&#x83B7;&#x53D6;&#x903B;&#x8F91;&#x4EA4;&#x7531;&#x5B50;&#x7C7B;&#x53BB;&#x5B9E;&#x73B0;&#xFF0C;&#x5C31;&#x9501;&#x7684;&#x83B7;&#x53D6;&#x64CD;&#x505A;&#x800C;&#x8A00;&#xFF0C;&#x5B50;&#x7C7B;&#x5FC5;&#x987B;&#x91CD;&#x5199; <code>tryAcquire</code>&#x65B9;&#x6CD5;&#x3002;</p>
+</blockquote>
+<h2 id="java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;"><a name="java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;" class="anchor-navigation-ex-anchor" href="#java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. java&#x5E76;&#x53D1;&#x5DE5;&#x5177;&#x7C7B;&#x4E09;&#x91CD;&#x70B9;</h2>
+<ol>
+<li><strong>&#x72B6;&#x6001;:</strong> &#x901A;&#x5E38;&#x662F;&#x4E00;&#x4E2A;state&#x5C5E;&#x6027;&#xFF0C;&#x5B83;&#x57FA;&#x672C;&#x662F;&#x6574;&#x4E2A;&#x5DE5;&#x5177;&#x7684;&#x6838;&#x5FC3;&#xFF0C;&#x4E00;&#x822C;&#x6574;&#x4E2A;&#x5DE5;&#x5177;&#x90FD;&#x662F;&#x5728;&#x8BBE;&#x7F6E;&#x548C;&#x4FEE;&#x6539;&#x72B6;&#x6001;&#xFF0C;&#x4E0D;&#x5C11;&#x65B9;&#x6CD5;&#x7684;&#x64CD;&#x505A;&#x90FD;&#x4F9D;&#x8D56;&#x4E8E;&#x5F53;&#x524D;&#x72B6;&#x6001;&#x662F;&#x4EC0;&#x4E48;&#x3002;&#x56E0;&#x4E3A;&#x72B6;&#x6001;&#x662F;&#x5168;&#x5C40;&#x5171;&#x4EAB;&#x7684;&#xFF0C;&#x901A;&#x5E38;&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x6210;volatile&#x7C7B;&#x578B;&#xFF0C;&#x4EE5;&#x4FDD;&#x8BC1;&#x5176;&#x4FEE;&#x6539;&#x7684;&#x53EF;&#x89C1;&#x6027;&#xFF1B;</li>
+<li><strong>&#x961F;&#x5217;:</strong> &#x961F;&#x5217;&#x4E00;&#x822C;&#x662F;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x7684;&#x96C6;&#x5408;&#xFF0C;&#x5927;&#x591A;&#x6570;&#x4EE5;&#x94FE;&#x8868;&#x7684;&#x5F62;&#x5F0F;&#x5B9E;&#x73B0;&#x3002;&#x961F;&#x5217;&#x91C7;&#x7528;&#x7684;&#x662F;&#x60B2;&#x89C2;&#x9501;&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x6240;&#x7B49;&#x5F85;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x72B6;&#x6001;&#x6216;&#x8005;&#x6761;&#x4EF6;&#x77ED;&#x671F;&#x5185;&#x53EF;&#x80FD;&#x6CA1;&#x6CD5;&#x77E5;&#x8DB3;&#x3002;&#x6240;&#x4EE5;&#xFF0C;&#x5B83;&#x4F1A;&#x5C06;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5305;&#x88C5;&#x6210;&#x67D0;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x6254;&#x5230;&#x4E00;&#x4E2A;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x5F53;&#x5FC5;&#x5B9A;&#x6761;&#x4EF6;&#x77E5;&#x8DB3;&#x540E;&#xFF0C;&#x518D;&#x4ECE;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x4E2D;&#x53D6;&#x51FA;&#x3002;</li>
+<li><strong>CAS:</strong> &#x6700;&#x8F7B;&#x91CF;&#x7684;&#x5E76;&#x53D1;&#x5904;&#x7406;&#xFF0C;&#x5BF9;&#x4E8E;state&#x7684;&#x4FEE;&#x6539;&#x7528;&#x5230;&#x7684;&#x90FD;&#x662F;CAS&#x64CD;&#x4F5C;&#xFF0C;&#x4FDD;&#x8BC1;&#x539F;&#x5B50;&#x6027;&#xFF0C;CAS&#x91C7;&#x7528;Unsafe&#x5DE5;&#x5177;&#x7C7B;&#x7684;<code>compareAndSwapXXX</code>&#x5B9E;&#x73B0;&#x3002;CAS&#x91C7;&#x7528;&#x4E50;&#x89C2;&#x9501;&#x7684;&#x601D;&#x60F3;&#xFF0C;&#x6B7B;&#x5FAA;&#x73AF;&#x8FDB;&#x884C;&#x4E0D;&#x65AD;&#x5C1D;&#x8BD5;CAS&#x64CD;&#x4F5C;</li>
+</ol>
+<h2 id="abstractqueuedsynchronizeraqs"><a name="abstractqueuedsynchronizeraqs" class="anchor-navigation-ex-anchor" href="#abstractqueuedsynchronizeraqs"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. AbstractQueuedSynchronizer(AQS)</h2>
+<h3 id="&#x72B6;&#x6001;"><a name="&#x72B6;&#x6001;" class="anchor-navigation-ex-anchor" href="#&#x72B6;&#x6001;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. &#x72B6;&#x6001;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">AbstractQueuedSynchronizer</span>
+    <span class="token keyword">extends</span> <span class="token class-name">AbstractOwnableSynchronizer</span>
+    <span class="token keyword">implements</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>Serializable</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token comment">//&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x9501;&#x7684;&#x72B6;&#x6001;&#xFF0C;state=0&#xFF0C;&#x9501;&#x6CA1;&#x88AB;&#x5360;&#x7528;&#xFF0C;state&gt;0&#x9501;&#x4E3A;&#x5360;&#x7528;&#x72B6;&#x6001;&#xFF0C;</span>
+        <span class="token comment">//&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x662F;=1&#x662F;&#x56E0;&#x4E3A;&#xFF0C;&#x53EF;&#x91CD;&#x5165;&#x9501;state&#x7684;&#x503C;&#x4F1A;&#x5927;&#x4E8E;1</span>
+        <span class="token keyword">private</span> <span class="token keyword">volatile</span> <span class="token keyword">int</span> state<span class="token punctuation">;</span>
+
+        <span class="token comment">//&#x5728;AbstractQueuedSynchronizer&#x4E2D;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x5B9E;&#x9645;&#x5B9A;&#x4E49;&#x5728;AbstractOwnableSynchronizer&#x4E2D;</span>
+        <span class="token comment">//&#x7EE7;&#x627F;&#x81EA;AbstractOwnableSynchronizer</span>
+        <span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token class-name">Thread</span> exclusiveOwnerThread<span class="token punctuation">;</span>
+
+        <span class="token comment">//&#x7B49;&#x5F85;&#x961F;&#x5217;&#x7684;&#x5934;&#x8282;&#x70B9;,head&#x8282;&#x70B9;&#x6C38;&#x8FDC;&#x4E3A;NULL(&#x54D1;&#x8282;&#x70B9;)&#xFF0C;&#x5C31;&#x7B97;&#x5F53;&#x524D;&#x7B49;&#x5F85;&#x961F;&#x5217;&#x65E0;&#x8282;&#x70B9;&#x4E5F;&#x4E0D;&#x4F1A;&#x63D2;&#x5165;&#x5230;head&#x8282;&#x70B9;</span>
+        <span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> head<span class="token punctuation">;</span>
+
+        <span class="token comment">//&#x7B49;&#x5F85;&#x961F;&#x5217;&#x7684;&#x5C3E;&#x8282;&#x70B9;</span>
+        <span class="token keyword">private</span> <span class="token keyword">transient</span> <span class="token keyword">volatile</span> <span class="token class-name">Node</span> tail<span class="token punctuation">;</span>
+        <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>ReentrantLock&#x4E3A;&#x72EC;&#x5360;&#x9501;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x65F6;&#x523B;&#x53EA;&#x80FD;&#x88AB;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x5360;&#x6709;&#xFF0C;&#x5728;<code>synchronized</code>&#x4E2D;&#x901A;&#x8FC7;&#x76D1;&#x89C6;&#x5668;&#x9501;&#x7684;<code>ObjectMonitor</code>&#x5BF9;&#x8C61;<code>_owner</code>&#x5C5E;&#x6027;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x62E5;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5728;<code>AQS</code>&#x4E2D;&#x901A;&#x8FC7;&#x7EE7;&#x627F;<code>AbstractOwnableSynchronizer</code>&#x7C7B;&#x4E2D;&#x7684;<code>exclusiveOwnerThread</code>&#x5C5E;&#x6027;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x5360;&#x7528;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</p>
+</blockquote>
+<h3 id="&#x961F;&#x5217;"><a name="&#x961F;&#x5217;" class="anchor-navigation-ex-anchor" href="#&#x961F;&#x5217;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. &#x961F;&#x5217;</h3>
+<p>&#x5728;AQS&#x4E2D;&#xFF0C;&#x91C7;&#x7528;&#x7684;&#x961F;&#x5217;&#x5E95;&#x5C42;&#x91C7;&#x7528;&#x53CC;&#x7AEF;&#x53CC;&#x5411;&#x94FE;&#x8868;&#xFF0C;&#x5B83;&#x8868;&#x793A;<code>&#x5168;&#x90E8;&#x7B49;&#x5F85;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x7684;&#x96C6;&#x5408;</code>,Node&#x4E3A;&#x5B9A;&#x4E49;&#x5728;AQS&#x7C7B;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">{</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token comment">// &#x8282;&#x70B9;&#x6240;&#x8868;&#x660E;&#x7684;&#x7EBF;&#x7A0B;</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Thread</span> thread<span class="token punctuation">;</span>
+
+    <span class="token comment">// &#x53CC;&#x5411;&#x94FE;&#x8868;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x987B;&#x8981;&#x4FDD;&#x5B58;&#x672C;&#x8EAB;&#x7684;&#x524D;&#x9A71;&#x8282;&#x70B9;&#x548C;&#x540E;&#x7EE7;&#x8282;&#x70B9;&#x7684;&#x5F15;&#x7528;</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> prev<span class="token punctuation">;</span>
+    <span class="token keyword">volatile</span> <span class="token class-name">Node</span> next<span class="token punctuation">;</span>
+
+    <span class="token comment">// &#x7EBF;&#x7A0B;&#x6240;&#x5904;&#x7684;&#x7B49;&#x5F85;&#x9501;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x65F6;&#xFF0C;&#x8BE5;&#x503C;&#x4E3A;0</span>
+    <span class="token keyword">volatile</span> <span class="token keyword">int</span> waitStatus<span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CANCELLED <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> SIGNAL <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> CONDITION <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> PROPAGATE <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// &#x8BE5;&#x5C5E;&#x6027;&#x7528;&#x4E8E;&#x6761;&#x4EF6;&#x961F;&#x5217;&#x6216;&#x8005;&#x5171;&#x4EAB;&#x9501;</span>
+    <span class="token class-name">Node</span> nextWaiter<span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>&#x5728;&#x8FD9;&#x4E2A;Node&#x7C7B;&#x4E2D;&#x4E5F;&#x6709;&#x4E00;&#x4E2A;&#x72B6;&#x6001;&#x53D8;&#x91CF;<code>waitStatus</code>&#xFF0C;&#x5B83;&#x8868;&#x793A;&#x4E86;&#x5F53;&#x524D;Node&#x6240;&#x8868;&#x660E;&#x7684;&#x7EBF;&#x7A0B;&#x7684;&#x7B49;&#x5F85;&#x9501;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5728;&#x72EC;&#x5360;&#x9501;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x54B1;&#x4EEC;&#x53EA;&#x987B;&#x8981;&#x5173;&#x6CE8;<code>CANCELLED</code> <code>SIGNAL</code>&#x4E24;&#x79CD;&#x72B6;&#x6001;&#x4FBF;&#x53EF;&#x3002;&#x8FD9;&#x91CC;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;<code>nextWaiter</code>&#x5C5E;&#x6027;&#xFF0C;&#x5B83;&#x5728;&#x72EC;&#x5360;&#x9501;&#x6A21;&#x5F0F;&#x4E0B;&#x6C38;&#x8FDC;&#x4E3A;null&#xFF0C;&#x4EC5;&#x4EC5;&#x8D77;&#x5230;&#x4E00;&#x4E2A;&#x6807;&#x8BB0;&#x505A;&#x7528;</p>
+</blockquote>
+<p><strong>sync queue</strong></p>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/java%E5%9F%BA%E7%A1%80/CLH%E9%98%9F%E5%88%97.png" alt="CLH&#x961F;&#x5217;"> </p>
+<p>AQS&#x4E2D;&#x7684;&#x961F;&#x5217;&#x662F;&#x4E00;&#x4E2A;CLH&#x961F;&#x5217;&#xFF0C;&#x5B83;&#x7684;head&#x8282;&#x70B9;&#x6C38;&#x8FDC;&#x662F;&#x4E00;&#x4E2A;&#x54D1;&#x7ED3;&#x70B9;&#xFF08;dummy node),&#x5B83;&#x4E0D;&#x8868;&#x660E;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#xFF08;&#x67D0;&#x4E9B;&#x72B6;&#x51B5;&#x4E0B;&#x80FD;&#x591F;&#x770B;&#x4F5C;&#x662F;&#x8868;&#x660E;&#x4E86;&#x5F53;&#x524D;&#x6301;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#xFF09;&#xFF0C;&#x6240;&#x4EE5;head&#x6240;&#x6307;&#x5411;&#x7684;Node&#x7684;thread&#x5C5E;&#x6027;&#x6C38;&#x8FDC;&#x662F;null&#x3002;&#x53EA;&#x6709;&#x4ECE;&#x6B21;&#x5934;&#x8282;&#x70B9;&#x65E5;&#x540E;&#x7684;&#x5168;&#x90E8;&#x8282;&#x70B9;&#x624D;&#x8868;&#x660E;&#x4E86;&#x5168;&#x90E8;&#x7B49;&#x5F85;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x5728;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x6CA1;&#x6709;&#x62A2;&#x5230;&#x9501;&#x88AB;&#x5305;&#x88C5;&#x6210;Node&#x6254;&#x5230;&#x961F;&#x5217;&#x4E2D;&#x65F6;&#xFF0C;&#x5373;&#x4FBF;&#x961F;&#x5217;&#x662F;&#x7A7A;&#x7684;&#xFF0C;&#x5B83;&#x4E5F;&#x4F1A;&#x6392;&#x5728;&#x7B2C;&#x4E8C;&#x4E2A;&#xFF0C;&#x54B1;&#x4EEC;&#x4F1A;&#x5728;&#x5B83;&#x7684;&#x524D;&#x9762;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;dummy&#x8282;&#x70B9;&#x3002;&#x4E3A;&#x4E86;&#x4FBF;&#x4E8E;&#x63CF;&#x8FF0;&#xFF0C;&#x4E0B;&#x6587;&#x4E2D;&#x54B1;&#x4EEC;&#x628A;&#x9664;&#x53BB;head&#x8282;&#x70B9;&#x7684;&#x961F;&#x5217;&#x79F0;&#x505A;&#x662F;&#x7B49;&#x5F85;&#x961F;&#x5217;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x8282;&#x70B9;&#x624D;&#x8868;&#x660E;&#x4E86;&#x5168;&#x90E8;&#x7B49;&#x5F85;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</p>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/java%E5%9F%BA%E7%A1%80/CLH%E9%98%9F%E5%88%97%E6%8F%92%E5%85%A5.png" alt="CLH&#x961F;&#x5217;&#x63D2;&#x5165;"> </p>
+<p><strong>Node&#x8282;&#x70B9;&#x5404;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x542B;&#x4E49;&#xFF1A;</strong></p>
+<ul>
+<li>thread&#xFF1A;&#x8868;&#x793A;&#x5F53;&#x524D;Node&#x6240;&#x8868;&#x660E;&#x7684;&#x7EBF;&#x7A0B;</li>
+<li>waitStatus&#xFF1A;&#x8868;&#x793A;&#x8282;&#x70B9;&#x6240;&#x5904;&#x7684;&#x7B49;&#x5F85;&#x72B6;&#x6001;&#xFF0C;&#x5171;&#x4EAB;&#x9501;&#x6A21;&#x5F0F;&#x4E0B;&#x53EA;&#x9700;&#x5173;&#x6CE8;&#x4E09;&#x79CD;&#x72B6;&#x6001;&#xFF1A;SIGNAL CANCELLED &#x521D;&#x59CB;&#x6001;(0)</li>
+<li>prev next&#xFF1A;&#x8282;&#x70B9;&#x7684;&#x524D;&#x9A71;&#x548C;&#x540E;&#x7EE7;</li>
+<li>nextWaiter&#xFF1A;&#x8FDB;&#x505A;&#x4E3A;&#x6807;&#x8BB0;&#xFF0C;&#x503C;&#x6C38;&#x8FDC;&#x4E3A;null&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x5904;&#x4E8E;&#x72EC;&#x5360;&#x9501;&#x6A21;&#x5F0F;</li>
+</ul>
+<h3 id="cas&#x64CD;&#x4F5C;"><a name="cas&#x64CD;&#x4F5C;" class="anchor-navigation-ex-anchor" href="#cas&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.3. CAS&#x64CD;&#x4F5C;</h3>
+<pre class="language-"><code class="lang-java">    <span class="token comment">/**
+     * Setup to support compareAndSet. We need to natively implement
+     * this here: For the sake of permitting future enhancements, we
+     * cannot explicitly subclass AtomicInteger, which would be
+     * efficient and useful otherwise. So, as the lesser of evils, we
+     * natively implement using hotspot intrinsics API. And while we
+     * are at it, we do the same for other CASable fields (which could
+     * otherwise be done with atomic field updaters).
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token class-name">Unsafe</span> unsafe <span class="token operator">=</span> <span class="token class-name">Unsafe</span><span class="token punctuation">.</span><span class="token function">getUnsafe</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> stateOffset<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> headOffset<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> tailOffset<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> waitStatusOffset<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> nextOffset<span class="token punctuation">;</span>
+
+    <span class="token keyword">static</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            stateOffset <span class="token operator">=</span> unsafe<span class="token punctuation">.</span>objectFieldOffset
+                <span class="token punctuation">(</span><span class="token class-name">AbstractQueuedSynchronizer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">&quot;state&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            headOffset <span class="token operator">=</span> unsafe<span class="token punctuation">.</span>objectFieldOffset
+                <span class="token punctuation">(</span><span class="token class-name">AbstractQueuedSynchronizer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">&quot;head&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            tailOffset <span class="token operator">=</span> unsafe<span class="token punctuation">.</span>objectFieldOffset
+                <span class="token punctuation">(</span><span class="token class-name">AbstractQueuedSynchronizer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">&quot;tail&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            waitStatusOffset <span class="token operator">=</span> unsafe<span class="token punctuation">.</span>objectFieldOffset
+                <span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">&quot;waitStatus&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            nextOffset <span class="token operator">=</span> unsafe<span class="token punctuation">.</span>objectFieldOffset
+                <span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredField</span><span class="token punctuation">(</span><span class="token string">&quot;next&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> ex<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span>ex<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4ECE;&#x8FD9;&#x4E2A;&#x9759;&#x6001;&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x54B1;&#x4EEC;&#x4E5F;&#x80FD;&#x591F;&#x770B;&#x51FA;&#xFF0C;CAS&#x64CD;&#x505A;&#x4E3B;&#x8981;&#x9488;&#x5BF9;5&#x4E2A;&#x5C5E;&#x6027;&#xFF0C;&#x5305;&#x62EC;AQS&#x7684;3&#x4E2A;&#x5C5E;&#x6027;<code>state</code>,<code>head</code>&#x548C;<code>tail</code>,&#x4EE5;&#x53CA;<code>Node</code>&#x5BF9;&#x8C61;&#x7684;&#x4E24;&#x4E2A;&#x5C5E;&#x6027;<code>waitStatus</code>,<code>next</code>&#x3002;&#x8BF4;&#x660E;&#x8FD9;5&#x4E2A;&#x5C5E;&#x6027;&#x57FA;&#x672C;&#x662F;&#x4F1A;&#x88AB;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x7684;&#x3002;CAS&#x64CD;&#x4F5C;&#x8C03;&#x7528;&#x7684;&#x4ECD;&#x662F;<code>Unsafe</code>&#x7684;<code>compareAndSwapXXX</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="reentrantlock&#x6E90;&#x7801;&#x5206;&#x6790;"><a name="reentrantlock&#x6E90;&#x7801;&#x5206;&#x6790;" class="anchor-navigation-ex-anchor" href="#reentrantlock&#x6E90;&#x7801;&#x5206;&#x6790;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. ReentrantLock&#x6E90;&#x7801;&#x5206;&#x6790;</h2>
+<ul>
+<li><strong>&#x9996;&#x5148;&#x7EE7;&#x627F;&#x5173;&#x7CFB;&#x56FE;</strong></li>
+</ul>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/java%E5%9F%BA%E7%A1%80/AQS%E7%BB%A7%E6%89%BF%E5%9B%BE.png" alt="AQS&#x7EE7;&#x627F;&#x56FE;"></p>
+<h3 id="&#x521D;&#x59CB;&#x5316;"><a name="&#x521D;&#x59CB;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x521D;&#x59CB;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.1. &#x521D;&#x59CB;&#x5316;</h3>
+<pre class="language-"><code class="lang-java">    <span class="token comment">/**
+     * Creates an instance of {@code ReentrantLock}.
+     * This is equivalent to using {@code ReentrantLock(false)}.
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//&#x65E0;&#x53C2;&#x9ED8;&#x8BA4;&#x521D;&#x59CB;&#x5316;&#x975E;&#x516C;&#x5E73;&#x9501;</span>
+        sync <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NonfairSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * Creates an instance of {@code ReentrantLock} with the
+     * given fairness policy.
+     *
+     * @param fair {@code true} if this lock should use a fair ordering policy
+     */</span>
+    <span class="token keyword">public</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> fair<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//true&#x516C;&#x5E73;&#x9501;&#xFF0C;false&#x975E;&#x516C;&#x5E73;&#x9501;&#xFF0C;FairSync&#x4E0E;NonfairSync&#x90FD;&#x7EE7;&#x627F;Sync&#x7C7B;&#xFF0C;Sync&#x7EE7;&#x627F;AQS&#x62BD;&#x8C61;&#x7C7B;</span>
+        sync <span class="token operator">=</span> fair <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">FairSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">NonfairSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>ReentrantLock &#x9ED8;&#x8BA4;&#x65E0;&#x53C2;&#x6784;&#x9020;&#x5668;&#x521D;&#x59CB;&#x5316;&#x975E;&#x516C;&#x5E73;&#x9501;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x521D;&#x59CB;&#x5316;&#x7684;&#x65F6;&#x5019;&#x6839;&#x636E;<code>boolean fair</code>&#x6784;&#x9020;&#x51FA;&#x516C;&#x5E73;&#x9501;
+<code>FairSync</code>&#x4E0E;<code>NonfairSync</code>&#x90FD;&#x7EE7;&#x627F;&#x4E8E;<code>Sync</code>&#x62BD;&#x8C61;&#x7C7B;,&#x5728;sync&#x4E2D;&#x5B9A;&#x4E49;&#x4E86;<code>lock()</code>&#x62BD;&#x8C61;&#x65B9;&#x6CD5;&#xFF0C;<code>FairSync</code>&#x4E0E;<code>NonfairSync</code>&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x91CD;&#x5199;</p>
+</blockquote>
+<h3 id="lock&#x65B9;&#x6CD5;"><a name="lock&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#lock&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4.2. lock()&#x65B9;&#x6CD5;</h3>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/java%E5%9F%BA%E7%A1%80/lock%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" alt="lock&#x6D41;&#x7A0B;&#x56FE;"></p>
+<h4 id="fairsynclock"><a name="fairsynclock" class="anchor-navigation-ex-anchor" href="#fairsynclock"><i class="fa fa-link" aria-hidden="true"></i></a>FairSync.lock()</h4>
+<pre class="language-"><code class="lang-java"><span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">FairSync</span> <span class="token keyword">extends</span> <span class="token class-name">Sync</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3000897897090466540L</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">protected</span> <span class="token keyword">final</span> <span class="token keyword">boolean</span> <span class="token function">tryAcquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> acquires<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5C1D;&#x8BD5;&#x52A0;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</span>
+            <span class="token keyword">final</span> <span class="token class-name">Thread</span> current <span class="token operator">=</span> <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> c <span class="token operator">=</span> <span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">//&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x5360;&#x6709;&#x9501;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">hasQueuedPredecessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token comment">//&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x7684;&#x672C;&#x8D28;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x68C0;&#x6D4B;&#x81EA;&#x5DF1;&#x662F;&#x4E0D;&#x662F;head&#x8282;&#x70B9;&#x7684;&#x540E;&#x7EE7;&#x8282;&#x70B9;&#xFF0C;&#x5373;&#x5904;&#x5728;&#x963B;&#x585E;&#x961F;&#x5217;&#x7B2C;&#x4E00;&#x4F4D;&#x7684;&#x8282;&#x70B9;</span>
+                    <span class="token function">compareAndSetState</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> acquires<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//cas&#x66F4;&#x6539;&#x72B6;&#x6001;&#x503C;</span>
+                    <span class="token function">setExclusiveOwnerThread</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//&#x72B6;&#x6001;&#x66F4;&#x6539;&#x6210;&#x529F;&#xFF0C;&#x5C06;&#x8BE5;&#x7EBF;&#x7A0B;&#x8BBE;&#x7F6E;&#x4E3A;&#x5360;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</span>
+                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">==</span> <span class="token function">getExclusiveOwnerThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//&#x9501;&#x5DF2;&#x7ECF;&#x88AB;&#x5360;&#x6709;&#xFF0C;&#x53EF;&#x91CD;&#x5165;&#x9501;&#x7684;&#x7279;&#x6027;&#xFF1A;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x5360;&#x6709;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x662F;&#x4E0D;&#x662F;&#x5C31;&#x662F;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x7EBF;&#x7A0B;</span>
+                <span class="token keyword">int</span> nextc <span class="token operator">=</span> c <span class="token operator">+</span> acquires<span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nextc <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&quot;Maximum lock count exceeded&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">setState</span><span class="token punctuation">(</span>nextc<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//state&#x8BB0;&#x5F55;&#x52A0;&#x9501;&#x7684;&#x6B21;&#x6570;</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li><strong>&#x8C03;&#x7528;AQS&#x4E2D;&#x7684;acquire()&#x65B9;&#x6CD5;</strong><pre class="language-"><code class="lang-java">  <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">void</span> <span class="token function">acquire</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">tryAcquire</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token function">acquireQueued</span><span class="token punctuation">(</span><span class="token function">addWaiter</span><span class="token punctuation">(</span><span class="token class-name">Node</span><span class="token punctuation">.</span>EXCLUSIVE<span class="token punctuation">)</span><span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token function">selfInterrupt</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><strong>tryAcquire(arg)</strong></li>
+</ul>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x7531;&#x7EE7;&#x627F;AQS&#x7684;&#x5B50;&#x7C7B;&#x5B9E;&#x73B0;, &#x4E3A;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x5177;&#x4F53;&#x903B;&#x8F91;&#x3002;</p>
+<ul>
+<li><strong>addWaiter(Node mode)</strong></li>
+</ul>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x7531;AQS&#x5B9E;&#x73B0;, &#x8D1F;&#x8D23;&#x5728;&#x83B7;&#x53D6;&#x9501;&#x5931;&#x8D25;&#x540E;&#x8C03;&#x7528;, &#x5C06;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x9501;&#x7684;&#x7EBF;&#x7A0B;&#x5305;&#x88C5;&#x6210;Node&#x6254;&#x5230;sync queue&#x4E2D;&#x53BB;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;Node&#x3002;</p>
+<ul>
+<li><strong>acquireQueued(final Node node, int arg)</strong></li>
+</ul>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x7531;AQS&#x5B9E;&#x73B0;,&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6BD4;&#x8F83;&#x590D;&#x6742;, &#x4E3B;&#x8981;&#x5BF9;&#x4E0A;&#x9762;&#x521A;&#x52A0;&#x5165;&#x961F;&#x5217;&#x7684;Node&#x4E0D;&#x65AD;&#x5C1D;&#x8BD5;&#x5982;&#x4E0B;&#x4E24;&#x79CD;&#x64CD;&#x505A;&#x4E4B;&#x4E00;:
+&#x5728;&#x524D;&#x9A71;&#x8282;&#x70B9;&#x5C31;&#x662F;head&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;,&#x7EE7;&#x7EED;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x9501;
+&#x5C06;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x6302;&#x8D77;,&#x4F7F;CPU&#x518D;&#x4E5F;&#x4E0D;&#x8C03;&#x5EA6;&#x5B83;</p>
+<ul>
+<li><strong>selfInterrupt</strong></li>
+</ul>
+<p>&#x8BE5;&#x65B9;&#x6CD5;&#x7531;AQS&#x5B9E;&#x73B0;, &#x7528;&#x4E8E;&#x4E2D;&#x65AD;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x3002;&#x56E0;&#x4E3A;&#x5728;&#x6574;&#x4E2A;&#x62A2;&#x9501;&#x8FC7;&#x7A0B;&#x5F53;&#x4E2D;&#xFF0C;&#x90FD;&#x662F;&#x4E0D;&#x54CD;&#x5E94;&#x4E2D;&#x65AD;&#x7684;&#x3002;&#x90A3;&#x82E5;&#x662F;&#x5728;&#x62A2;&#x9501;&#x7684;&#x8FC7;&#x7A0B;&#x5F53;&#x4E2D;&#x53D1;&#x751F;&#x4E86;&#x4E2D;&#x65AD;AQS&#x7684;&#x4F5C;&#x6CD5;&#x7B80;&#x5355;&#x7684;&#x8BB0;&#x5F55;&#x6709;&#x6CA1;&#x6709;&#x6709;&#x53D1;&#x751F;&#x8FC7;&#x4E2D;&#x65AD;&#xFF0C;
+&#x82E5;&#x662F;&#x8FD4;&#x56DE;&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x66FE;&#x7ECF;&#x53D1;&#x751F;&#x8FC7;&#x4E2D;&#x65AD;&#xFF0C;&#x5219;&#x5728;&#x9000;&#x51FA;acquire&#x65B9;&#x6CD5;&#x4EE5;&#x524D;&#xFF0C;&#x5C31;&#x8C03;&#x7528;selfInterrupt&#x81EA;&#x6211;&#x4E2D;&#x65AD;&#x4E00;&#x4E0B;&#xFF0C;&#x5C31;&#x597D;&#x50CF;&#x5C06;&#x8FD9;&#x4E2A;&#x53D1;&#x751F;&#x5728;&#x62A2;&#x9501;&#x8FC7;&#x7A0B;&#x5F53;&#x4E2D;&#x7684;&#x4E2D;&#x65AD;&#x201C;&#x63A8;&#x8FDF;&#x201D;&#x5230;&#x62A2;&#x9501;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#x518D;&#x53D1;&#x751F;&#x540C;&#x6837;&#x3002;</p>
+<h2 id="semaphore&#x4FE1;&#x53F7;&#x91CF;-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;"><a name="semaphore&#x4FE1;&#x53F7;&#x91CF;-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;" class="anchor-navigation-ex-anchor" href="#semaphore&#x4FE1;&#x53F7;&#x91CF;-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. Semaphore(&#x4FE1;&#x53F7;&#x91CF;)-&#x5141;&#x8BB8;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;</h2>
+<p>synchronized &#x548C; ReentrantLock &#x90FD;&#x662F;&#x4E00;&#x6B21;&#x53EA;&#x5141;&#x8BB8;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x67D0;&#x4E2A;&#x8D44;&#x6E90;&#xFF0C;Semaphore(&#x4FE1;&#x53F7;&#x91CF;)&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8BBF;&#x95EE;&#x67D0;&#x4E2A;&#x8D44;&#x6E90;&#x3002;</p>
+<p>Semaphore&#x540C;&#x6837;&#x5177;&#x6709;&#x662F;&#x5426;&#x5F00;&#x542F;&#x516C;&#x5E73;&#x6A21;&#x5F0F;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x9ED8;&#x8BA4;&#x975E;&#x516C;&#x5E73;&#x6A21;&#x5F0F;</p>
+<blockquote>
+<p>Semaphore &#x4E0E; CountDownLatch &#x4E00;&#x6837;&#xFF0C;&#x4E5F;&#x662F;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x4E00;&#x79CD;&#x5B9E;&#x73B0;&#x3002;&#x5B83;&#x9ED8;&#x8BA4;&#x6784;&#x9020; AQS &#x7684; state &#x4E3A; permits&#x3002;</p>
+<p>&#x5F53;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7684;&#x7EBF;&#x7A0B;&#x6570;&#x91CF;&#x8D85;&#x51FA; permits,&#x90A3;&#x4E48;&#x591A;&#x4F59;&#x7684;&#x7EBF;&#x7A0B;&#x5C06;&#x4F1A;&#x88AB;&#x653E;&#x5165;&#x963B;&#x585E;&#x961F;&#x5217; Park,&#x5E76;&#x81EA;&#x65CB;&#x5224;&#x65AD; state &#x662F;&#x5426;&#x5927;&#x4E8E; 0&#x3002;</p>
+<p>&#x53EA;&#x6709;&#x5F53; state &#x5927;&#x4E8E; 0 &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x963B;&#x585E;&#x7684;&#x7EBF;&#x7A0B;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x6267;&#x884C;,&#x6B64;&#x65F6;&#x5148;&#x524D;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7684;&#x7EBF;&#x7A0B;&#x7EE7;&#x7EED;&#x6267;&#x884C; release &#x65B9;&#x6CD5;&#xFF0C;</p>
+<p>release &#x65B9;&#x6CD5;&#x4F7F;&#x5F97; state &#x7684;&#x53D8;&#x91CF;&#x4F1A;&#x52A0; 1&#xFF0C;&#x90A3;&#x4E48;&#x81EA;&#x65CB;&#x7684;&#x7EBF;&#x7A0B;&#x4FBF;&#x4F1A;&#x5224;&#x65AD;&#x6210;&#x529F;&#x3002; </p>
+<p>&#x5982;&#x6B64;&#xFF0C;&#x6BCF;&#x6B21;&#x53EA;&#x6709;&#x6700;&#x591A;&#x4E0D;&#x8D85;&#x8FC7; permits &#x6570;&#x91CF;&#x7684;&#x7EBF;&#x7A0B;&#x80FD;&#x81EA;&#x65CB;&#x6210;&#x529F;&#xFF0C;&#x4FBF;&#x9650;&#x5236;&#x4E86;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7EBF;&#x7A0B;&#x7684;&#x6570;&#x91CF;&#x3002;</p>
+</blockquote>
+<h2 id="countdownlatch-&#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;"><a name="countdownlatch-&#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;" class="anchor-navigation-ex-anchor" href="#countdownlatch-&#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;"><i class="fa fa-link" aria-hidden="true"></i></a>1.6. CountDownLatch &#xFF08;&#x5012;&#x8BA1;&#x65F6;&#x5668;&#xFF09;</h2>
+<ul>
+<li>CountDownLatch &#x5141;&#x8BB8; count &#x4E2A;&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x5728;&#x4E00;&#x4E2A;&#x5730;&#x65B9;&#xFF0C;&#x76F4;&#x81F3;&#x6240;&#x6709;&#x7EBF;&#x7A0B;&#x7684;&#x4EFB;&#x52A1;&#x90FD;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x3002;</li>
+</ul>
+<blockquote>
+<p>CountDownLatch &#x662F;&#x5171;&#x4EAB;&#x9501;&#x7684;&#x4E00;&#x79CD;&#x5B9E;&#x73B0;,&#x5B83;&#x9ED8;&#x8BA4;&#x6784;&#x9020; AQS &#x7684; state &#x503C;&#x4E3A; count&#x3002;&#x5F53;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528; countDown() &#x65B9;&#x6CD5;&#x65F6;,&#x5176;&#x5B9E;&#x4F7F;&#x7528;&#x4E86;tryReleaseShared&#x65B9;&#x6CD5;&#x4EE5; CAS &#x7684;&#x64CD;&#x4F5C;&#x6765;&#x51CF;&#x5C11; state,&#x76F4;&#x81F3; state &#x4E3A; 0 &#x3002;</p>
+<p>&#x5F53;&#x8C03;&#x7528; await() &#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C; state &#x4E0D;&#x4E3A; 0&#xFF0C;&#x90A3;&#x5C31;&#x8BC1;&#x660E;&#x4EFB;&#x52A1;&#x8FD8;&#x6CA1;&#x6709;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;await() &#x65B9;&#x6CD5;&#x5C31;&#x4F1A;&#x4E00;&#x76F4;&#x963B;&#x585E;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4; await() &#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#x7684;&#x8BED;&#x53E5;&#x4E0D;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x7136;&#x540E;&#xFF0C;CountDownLatch &#x4F1A;&#x81EA;&#x65CB; CAS &#x5224;&#x65AD; state == 0&#xFF0C;&#x5982;&#x679C; state == 0 &#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x4F1A;&#x91CA;&#x653E;&#x6240;&#x6709;&#x7B49;&#x5F85;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;await() &#x65B9;&#x6CD5;&#x4E4B;&#x540E;&#x7684;&#x8BED;&#x53E5;&#x5F97;&#x5230;&#x6267;&#x884C;&#x3002;</p>
+</blockquote>
+<h3 id="countdownlatch-&#x7684;&#x4E0D;&#x8DB3;"><a name="countdownlatch-&#x7684;&#x4E0D;&#x8DB3;" class="anchor-navigation-ex-anchor" href="#countdownlatch-&#x7684;&#x4E0D;&#x8DB3;"><i class="fa fa-link" aria-hidden="true"></i></a>1.6.1. CountDownLatch &#x7684;&#x4E0D;&#x8DB3;</h3>
+<p>CountDownLatch &#x662F;&#x4E00;&#x6B21;&#x6027;&#x7684;&#xFF0C;&#x8BA1;&#x6570;&#x5668;&#x7684;&#x503C;&#x53EA;&#x80FD;&#x5728;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x4E2D;&#x521D;&#x59CB;&#x5316;&#x4E00;&#x6B21;&#xFF0C;&#x4E4B;&#x540E;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x673A;&#x5236;&#x518D;&#x6B21;&#x5BF9;&#x5176;&#x8BBE;&#x7F6E;&#x503C;&#xFF0C;&#x5F53; CountDownLatch &#x4F7F;&#x7528;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x5B83;&#x4E0D;&#x80FD;&#x518D;&#x6B21;&#x88AB;&#x4F7F;&#x7528;&#x3002;</p>
+<h2 id="cyclicbarrier&#x5FAA;&#x73AF;&#x6805;&#x680F;"><a name="cyclicbarrier&#x5FAA;&#x73AF;&#x6805;&#x680F;" class="anchor-navigation-ex-anchor" href="#cyclicbarrier&#x5FAA;&#x73AF;&#x6805;&#x680F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.7. CyclicBarrier(&#x5FAA;&#x73AF;&#x6805;&#x680F;)</h2>
+<ul>
+<li>CountDownLatch &#x7684;&#x5B9E;&#x73B0;&#x662F;&#x57FA;&#x4E8E; AQS &#x7684;&#xFF0C;&#x800C; CycliBarrier &#x662F;&#x57FA;&#x4E8E; ReentrantLock(ReentrantLock &#x4E5F;&#x5C5E;&#x4E8E; AQS &#x540C;&#x6B65;&#x5668;)&#x548C; Condition &#x7684;.</li>
+</ul>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> &#x4F7F;&#x7528;<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">&#x77E5;&#x8BC6;&#x5171;&#x4EAB; &#x7F72;&#x540D;-&#x76F8;&#x540C;&#x65B9;&#x5F0F;&#x5171;&#x4EAB; 4.0&#x534F;&#x8BAE;</a>&#x53D1;&#x5E03; </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2022-07-18 15:10:06 </span> </footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="4.CountDownLatch、CyclicBarrier、Semaphore.html" class="navigation navigation-prev " aria-label="Previous page: 4.CountDownLatch、CyclicBarrier、Semaphore">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="6.阻塞队列.html" class="navigation navigation-next " aria-label="Next page: 6.阻塞队列">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5.AQS原理以及AQS同步组件","level":"1.2.3.5","depth":3,"next":{"title":"6.阻塞队列","level":"1.2.3.6","depth":3,"path":"1.JAVA基础/并发编程/6.阻塞队列.md","ref":"1.JAVA基础/并发编程/6.阻塞队列.md","articles":[]},"previous":{"title":"4.CountDownLatch、CyclicBarrier、Semaphore","level":"1.2.3.4","depth":3,"path":"1.JAVA基础/并发编程/4.CountDownLatch、CyclicBarrier、Semaphore.md","ref":"1.JAVA基础/并发编程/4.CountDownLatch、CyclicBarrier、Semaphore.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters","copy-code-button","page-footer-ex","anchor-navigation-ex","expandable-chapters-small","prism","-highlight","-lunr","-search","theme-comscore","search-pro","splitter"],"ignores":["_book","node_modules"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"}},"page-footer-ex":{"copyright":"使用[知识共享 署名-相同方式共享 4.0协议](https://creativecommons.org/licenses/by-sa/4.0/)发布","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"theme-comscore":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"ALin","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学习笔记","links":{"sidebar":{"Home":"https://lucklin8.github.io/ALin.github.io/"}},"gitbook":"*","description":"ALin的学习博客"},"file":{"path":"1.JAVA基础/并发编程/5.AQS原理以及AQS同步组件.md","mtime":"2022-07-18T15:10:06.525Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-18T15:10:57.703Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+

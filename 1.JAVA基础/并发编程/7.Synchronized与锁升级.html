@@ -1,0 +1,1681 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>7.Synchronized与锁升级 · 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="ALin">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-footer-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-solarizedlight.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-pro/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-theme-comscore/test.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="8.Synchronized与ReentrantLock.html" />
+    
+    
+    <link rel="prev" href="6.阻塞队列.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://lucklin8.github.io/ALin.github.io/" target="_blank" class="custom-link">Home</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                    1.JAVA基础
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" >
+            
+                <span>
+            
+                    
+                    JAVA容器
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="../JAVA容器/1.ArrayList与LinkedList.html">
+            
+                <a href="../JAVA容器/1.ArrayList与LinkedList.html">
+            
+                    
+                    1.ArrayList与LinkedList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="../JAVA容器/2.HashTable.html">
+            
+                <a href="../JAVA容器/2.HashTable.html">
+            
+                    
+                    2.HashTable
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../JAVA容器/3.HashMap.html">
+            
+                <a href="../JAVA容器/3.HashMap.html">
+            
+                    
+                    3.HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="../JAVA容器/4.ConcurrentHashMap.html">
+            
+                <a href="../JAVA容器/4.ConcurrentHashMap.html">
+            
+                    
+                    4.ConcurrentHashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" >
+            
+                <span>
+            
+                    
+                    JVM
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../JVM/1.深入理解JVM.html">
+            
+                <a href="../JVM/1.深入理解JVM.html">
+            
+                    
+                    1.深入理解JVM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../JVM/2.JVM常见问题.html">
+            
+                <a href="../JVM/2.JVM常见问题.html">
+            
+                    
+                    2.JVM常见问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" >
+            
+                <span>
+            
+                    
+                    并发编程
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="1.JMM内存模型和volatile.html">
+            
+                <a href="1.JMM内存模型和volatile.html">
+            
+                    
+                    1.JMM内存模型和volatile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="2.CAS.html">
+            
+                <a href="2.CAS.html">
+            
+                    
+                    2.CAS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="3.锁.html">
+            
+                <a href="3.锁.html">
+            
+                    
+                    3.锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="4.CountDownLatch、CyclicBarrier、Semaphore.html">
+            
+                <a href="4.CountDownLatch、CyclicBarrier、Semaphore.html">
+            
+                    
+                    4.CountDownLatch、CyclicBarrier、Semaphore
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" data-path="5.AQS原理以及AQS同步组件.html">
+            
+                <a href="5.AQS原理以及AQS同步组件.html">
+            
+                    
+                    5.AQS原理以及AQS同步组件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" data-path="6.阻塞队列.html">
+            
+                <a href="6.阻塞队列.html">
+            
+                    
+                    6.阻塞队列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3.7" data-path="7.Synchronized与锁升级.html">
+            
+                <a href="7.Synchronized与锁升级.html">
+            
+                    
+                    7.Synchronized与锁升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.8" data-path="8.Synchronized与ReentrantLock.html">
+            
+                <a href="8.Synchronized与ReentrantLock.html">
+            
+                    
+                    8.Synchronized与ReentrantLock
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.9" data-path="9.ThreadPoolExecutor.html">
+            
+                <a href="9.ThreadPoolExecutor.html">
+            
+                    
+                    9.ThreadPoolExecutor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.10" data-path="x.DeadLock.html">
+            
+                <a href="x.DeadLock.html">
+            
+                    
+                    x.DeadLock
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.11" data-path="x1.ThreadLocal.html">
+            
+                <a href="x1.ThreadLocal.html">
+            
+                    
+                    x1.ThreadLocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    2.分布式
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../2.分布式/1.分布式事务.html">
+            
+                <a href="../../2.分布式/1.分布式事务.html">
+            
+                    
+                    1.分布式事务
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                    3.Mysql原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../3.Mysql原理/1.索引失效和索引优化.html">
+            
+                <a href="../../3.Mysql原理/1.索引失效和索引优化.html">
+            
+                    
+                    1.索引失效和索引优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../3.Mysql原理/2.B+Tree与Innodb.html">
+            
+                <a href="../../3.Mysql原理/2.B+Tree与Innodb.html">
+            
+                    
+                    2.B+Tree与Innodb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../3.Mysql原理/3.Mysql如何实现事务.html">
+            
+                <a href="../../3.Mysql原理/3.Mysql如何实现事务.html">
+            
+                    
+                    3.Mysql如何实现事务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../3.Mysql原理/4.MVCC.html">
+            
+                <a href="../../3.Mysql原理/4.MVCC.html">
+            
+                    
+                    4.MVCC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../3.Mysql原理/5.Mysql脏读、不可重复读、幻读和MVCC.html">
+            
+                <a href="../../3.Mysql原理/5.Mysql脏读、不可重复读、幻读和MVCC.html">
+            
+                    
+                    5.Mysql脏读、不可重复读、幻读和MVCC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../3.Mysql原理/6.Mysql锁.html">
+            
+                <a href="../../3.Mysql原理/6.Mysql锁.html">
+            
+                    
+                    6.Mysql锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../3.Mysql原理/7.Explain.html">
+            
+                <a href="../../3.Mysql原理/7.Explain.html">
+            
+                    
+                    7.Explain
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    4.Redis原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" >
+            
+                <span>
+            
+                    
+                    常见问题
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1.1" data-path="../../4.Redis原理/常见问题/1.热key击穿穿透雪崩.html">
+            
+                <a href="../../4.Redis原理/常见问题/1.热key击穿穿透雪崩.html">
+            
+                    
+                    1.热key击穿穿透雪崩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.2" data-path="../../4.Redis原理/常见问题/2.redis分布式锁.html">
+            
+                <a href="../../4.Redis原理/常见问题/2.redis分布式锁.html">
+            
+                    
+                    2.redis分布式锁
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.3" data-path="../../4.Redis原理/常见问题/3.如何保证缓存一致性.html">
+            
+                <a href="../../4.Redis原理/常见问题/3.如何保证缓存一致性.html">
+            
+                    
+                    3.如何保证缓存一致性
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.1.4" data-path="../../4.Redis原理/常见问题/4.过期删除策略和内存淘汰策略.html">
+            
+                <a href="../../4.Redis原理/常见问题/4.过期删除策略和内存淘汰策略.html">
+            
+                    
+                    4.过期删除策略和内存淘汰策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <span>
+            
+                    
+                    数据结构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.2.1" data-path="../../4.Redis原理/数据结构/1.简单动态字符串.html">
+            
+                <a href="../../4.Redis原理/数据结构/1.简单动态字符串.html">
+            
+                    
+                    1.简单动态字符串
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.2" data-path="../../4.Redis原理/数据结构/2.链表.html">
+            
+                <a href="../../4.Redis原理/数据结构/2.链表.html">
+            
+                    
+                    2.链表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.3" data-path="../../4.Redis原理/数据结构/3.字典.html">
+            
+                <a href="../../4.Redis原理/数据结构/3.字典.html">
+            
+                    
+                    3.字典
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.4" data-path="../../4.Redis原理/数据结构/4.跳跃表.html">
+            
+                <a href="../../4.Redis原理/数据结构/4.跳跃表.html">
+            
+                    
+                    4.跳跃表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.5" data-path="../../4.Redis原理/数据结构/5.整数集合.html">
+            
+                <a href="../../4.Redis原理/数据结构/5.整数集合.html">
+            
+                    
+                    5.整数集合
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.6" data-path="../../4.Redis原理/数据结构/6.压缩列表.html">
+            
+                <a href="../../4.Redis原理/数据结构/6.压缩列表.html">
+            
+                    
+                    6.压缩列表
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2.7" data-path="../../4.Redis原理/数据结构/7.对象.html">
+            
+                <a href="../../4.Redis原理/数据结构/7.对象.html">
+            
+                    
+                    7.对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" >
+            
+                <span>
+            
+                    
+                    核心设计
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../4.Redis原理/核心设计/1.redis核心设计概述.html">
+            
+                <a href="../../4.Redis原理/核心设计/1.redis核心设计概述.html">
+            
+                    
+                    1.redis核心设计概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../4.Redis原理/核心设计/2.redis为什么这么快.html">
+            
+                <a href="../../4.Redis原理/核心设计/2.redis为什么这么快.html">
+            
+                    
+                    2.redis为什么这么快
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../4.Redis原理/核心设计/3.AOF日志.html">
+            
+                <a href="../../4.Redis原理/核心设计/3.AOF日志.html">
+            
+                    
+                    3.AOF日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../4.Redis原理/核心设计/4.RDB日志.html">
+            
+                <a href="../../4.Redis原理/核心设计/4.RDB日志.html">
+            
+                    
+                    4.RDB日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.5" data-path="../../4.Redis原理/核心设计/5.主从库如何保证一致.html">
+            
+                <a href="../../4.Redis原理/核心设计/5.主从库如何保证一致.html">
+            
+                    
+                    5.主从库如何保证一致
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.6" data-path="../../4.Redis原理/核心设计/6.哨兵机制.html">
+            
+                <a href="../../4.Redis原理/核心设计/6.哨兵机制.html">
+            
+                    
+                    6.哨兵机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.7" data-path="../../4.Redis原理/核心设计/7.哨兵集群.html">
+            
+                <a href="../../4.Redis原理/核心设计/7.哨兵集群.html">
+            
+                    
+                    7.哨兵集群
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    5.MQ
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" >
+            
+                <span>
+            
+                    
+                    Kafka
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1.1" data-path="../../5.MQ/kafka/1.kafka.html">
+            
+                <a href="../../5.MQ/kafka/1.kafka.html">
+            
+                    
+                    1.kafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../5.MQ/1.mq选型.html">
+            
+                <a href="../../5.MQ/1.mq选型.html">
+            
+                    
+                    1.mq选型
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../5.MQ/2.如何保证mq的高可用.html">
+            
+                <a href="../../5.MQ/2.如何保证mq的高可用.html">
+            
+                    
+                    2.如何保证mq的高可用
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../../5.MQ/3.事务性消息.html">
+            
+                <a href="../../5.MQ/3.事务性消息.html">
+            
+                    
+                    3.事务性消息
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                    6.Spring
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../6.Spring/1.Spring的Bean的生命周期.html">
+            
+                <a href="../../6.Spring/1.Spring的Bean的生命周期.html">
+            
+                    
+                    1.Spring的Bean的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.2" data-path="../../6.Spring/2.Spring的Aop原理.html">
+            
+                <a href="../../6.Spring/2.Spring的Aop原理.html">
+            
+                    
+                    2.Spring的Aop原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7.3" data-path="../../6.Spring/3.三级缓存解决循环依赖.html">
+            
+                <a href="../../6.Spring/3.三级缓存解决循环依赖.html">
+            
+                    
+                    3.三级缓存解决循环依赖
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                    7.Netty
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../../7.Netty/1.传统IO.html">
+            
+                <a href="../../7.Netty/1.传统IO.html">
+            
+                    
+                    1.传统IO
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../../7.Netty/2.Netty实战.html">
+            
+                <a href="../../7.Netty/2.Netty实战.html">
+            
+                    
+                    2.Netty实战
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../../7.Netty/3.Netty实现rpc.html">
+            
+                <a href="../../7.Netty/3.Netty实现rpc.html">
+            
+                    
+                    3.Netty实现rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                    8.大数据相关
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" >
+            
+                <span>
+            
+                    
+                    Flink
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1.1" data-path="../../8.大数据相关/flink/1.docker部署flink.html">
+            
+                <a href="../../8.大数据相关/flink/1.docker部署flink.html">
+            
+                    
+                    1.docker部署flink
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.1.2" data-path="../../8.大数据相关/flink/2.运行时架构.html">
+            
+                <a href="../../8.大数据相关/flink/2.运行时架构.html">
+            
+                    
+                    2.运行时架构
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" >
+            
+                <span>
+            
+                    
+                    Hive
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.2.1" data-path="../../8.大数据相关/hive/hive基础.html">
+            
+                <a href="../../8.大数据相关/hive/hive基础.html">
+            
+                    
+                    hive基础
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" >
+            
+                <span>
+            
+                    
+                    实时数仓
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.3.1" data-path="../../8.大数据相关/实时数仓/随记1.html">
+            
+                <a href="../../8.大数据相关/实时数仓/随记1.html">
+            
+                    
+                    随记1
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                    x.问题总结
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" data-path="../../x.问题总结/多线程使用不当OOM排查.html">
+            
+                <a href="../../x.问题总结/多线程使用不当OOM排查.html">
+            
+                    
+                    多线程使用不当OOM排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" data-path="../../x.问题总结/父子线程公用线程池线上事故.html">
+            
+                <a href="../../x.问题总结/父子线程公用线程池线上事故.html">
+            
+                    
+                    父子线程公用线程池线上事故
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >7.Synchronized与锁升级</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><ul><li><span class="title-icon "></span><a href="#&#x5E94;&#x7528;&#x65B9;&#x5F0F;"><b>1.1. </b>&#x5E94;&#x7528;&#x65B9;&#x5F0F;</a></li><ul><li><span class="title-icon "></span><a href="#&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><b>1.1.1. </b>&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><b>1.1.2. </b>&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#&#x4EE3;&#x7801;&#x5757;"><b>1.1.3. </b>&#x4EE3;&#x7801;&#x5757;</a></li></ul><li><span class="title-icon "></span><a href="#synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;"><b>1.2. </b>synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;</a></li><ul><li><span class="title-icon "></span><a href="#&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter-&#x548C;-monitorexit-&#x6307;&#x4EE4;&#x5B9E;&#x73B0;"><b>1.2.1. </b>&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter &#x548C; monitorexit &#x6307;&#x4EE4;&#x5B9E;&#x73B0;</a></li><li><span class="title-icon "></span><a href="#&#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;"><b>1.2.2. </b>&#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;</a></li><li><span class="title-icon "></span><a href="#&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684;-accsynchronized-&#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;"><b>1.2.3. </b>&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684; ACC_SYNCHRONIZED &#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;</a></li></ul><li><span class="title-icon "></span><a href="#synchronized&#x7684;&#x4F18;&#x5316;&#x9501;&#x5347;&#x7EA7;"><b>1.3. </b>synchronized&#x7684;&#x4F18;&#x5316;(&#x9501;&#x5347;&#x7EA7;)</a></li><ul><li><span class="title-icon "></span><a href="#&#x504F;&#x5411;&#x9501;"><b>1.3.1. </b>&#x504F;&#x5411;&#x9501;</a></li><li><span class="title-icon "></span><a href="#&#x8F7B;&#x91CF;&#x7EA7;&#x9501;"><b>1.3.2. </b>&#x8F7B;&#x91CF;&#x7EA7;&#x9501;</a></li><li><span class="title-icon "></span><a href="#&#x91CD;&#x91CF;&#x7EA7;&#x9501;"><b>1.3.3. </b>&#x91CD;&#x91CF;&#x7EA7;&#x9501;</a></li><li><span class="title-icon "></span><a href="#&#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;"><b>1.3.4. </b>&#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;</a></li></ul><li><span class="title-icon "></span><a href="#&#x9501;&#x7C97;&#x5316;"><b>1.4. </b>&#x9501;&#x7C97;&#x5316;</a></li><li><span class="title-icon "></span><a href="#&#x9501;&#x6D88;&#x9664;"><b>1.5. </b>&#x9501;&#x6D88;&#x9664;</a></li></ul></ul></div><a href="#" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><h2 id="&#x5E94;&#x7528;&#x65B9;&#x5F0F;"><a name="&#x5E94;&#x7528;&#x65B9;&#x5F0F;" class="anchor-navigation-ex-anchor" href="#&#x5E94;&#x7528;&#x65B9;&#x5F0F;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. &#x5E94;&#x7528;&#x65B9;&#x5F0F;</h2>
+<ol>
+<li>&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x9501;&#x662F;&#x5F53;&#x524D;&#x7684;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;</li>
+<li>&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;&#x9501;&#x662F;&#x662F;&#x5F53;&#x524D;&#x7C7B;&#x7684;class&#x5BF9;&#x8C61;</li>
+<li>&#x5BF9;&#x4E8E;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x5757;&#xFF0C;&#x9501;&#x662F;synchronized&#x62EC;&#x53F7;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;</li>
+</ol>
+<h3 id="&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><a name="&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.1. &#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</h3>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AccountingSync</span> <span class="token keyword">implements</span> <span class="token class-name">Runnable</span><span class="token punctuation">{</span>
+    <span class="token comment">//&#x5171;&#x4EAB;&#x8D44;&#x6E90;(&#x4E34;&#x754C;&#x8D44;&#x6E90;)</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * synchronized &#x4FEE;&#x9970;&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">increase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        i<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span><span class="token number">1000000</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">increase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">InterruptedException</span> <span class="token punctuation">{</span>
+        <span class="token class-name">AccountingSync</span> instance<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">AccountingSync</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span> t1<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Thread</span> t2<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Thread</span><span class="token punctuation">(</span>instance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t1<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t2<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t1<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        t2<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">/**
+     * &#x8F93;&#x51FA;&#x7ED3;&#x679C;:
+     * 2000000
+     */</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>&#x666E;&#x901A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x9501;&#x7684;&#x4E3A;&#x5F53;&#x524D;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;<blockquote>
+<p>&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6B63;&#x5728;&#x8BBF;&#x95EE;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684; synchronized &#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x4E0D;&#x80FD;&#x8BBF;&#x95EE;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x5176;&#x4ED6; synchronized &#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x8C61;&#x53EA;&#x6709;&#x4E00;&#x628A;&#x9501;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x4E86;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x9501;&#x4E4B;&#x540E;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x9501;&#xFF0C;&#x6240;&#x4EE5;&#x65E0;&#x6CD5;&#x8BBF;&#x95EE;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x5176;&#x4ED6;synchronized&#x5B9E;&#x4F8B;&#x65B9;&#x6CD5;</p>
+<p>&#x4F46;&#x662F;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x8FD8;&#x662F;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x8BE5;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x5176;&#x4ED6;&#x975E;synchronized&#x65B9;&#x6CD5;&#xFF0C;&#x5F53;&#x7136;&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B; A &#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61; obj1 &#x7684; synchronized &#x65B9;&#x6CD5; f1(&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x9501;&#x662F;obj1)&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B; B &#x9700;&#x8981;&#x8BBF;&#x95EE;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61; obj2 &#x7684; synchronized &#x65B9;&#x6CD5; f2(&#x5F53;&#x524D;&#x5BF9;&#x8C61;&#x9501;&#x662F;obj2)&#xFF0C;&#x8FD9;&#x6837;&#x662F;&#x5141;&#x8BB8;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x4E24;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x9501;&#x5E76;&#x4E0D;&#x540C;&#x76F8;&#x540C;</p>
+<p>&#x6B64;&#x65F6;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x5E76;&#x975E;&#x5171;&#x4EAB;&#x7684;&#xFF0C;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x662F;&#x6709;&#x4FDD;&#x969C;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x7EBF;&#x7A0B;&#x64CD;&#x4F5C;&#x7684;&#x662F;&#x5171;&#x4EAB;&#x6570;&#x636E;&#xFF0C;&#x90A3;&#x4E48;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x4E0D;&#x5B89;&#x5168;</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><a name="&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#&#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.2. &#x9759;&#x6001;&#x540C;&#x6B65;&#x65B9;&#x6CD5;</h3>
+<ul>
+<li>&#x5F53;synchronized&#x4F5C;&#x7528;&#x4E8E;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5176;&#x9501;&#x5C31;&#x662F;&#x5F53;&#x524D;&#x7C7B;&#x7684;class&#x5BF9;&#x8C61;&#x9501;&#x3002;<blockquote>
+<p>&#x7531;&#x4E8E;&#x9759;&#x6001;&#x6210;&#x5458;&#x4E0D;&#x4E13;&#x5C5E;&#x4E8E;&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#xFF0C;&#x662F;&#x7C7B;&#x6210;&#x5458;&#xFF0C;&#x56E0;&#x6B64;&#x901A;&#x8FC7;class&#x5BF9;&#x8C61;&#x9501;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x9759;&#x6001;&#x6210;&#x5458;&#x7684;&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;A&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x7684;&#x975E;static synchronized&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x7EBF;&#x7A0B;B&#x9700;&#x8981;&#x8C03;&#x7528;&#x8FD9;&#x4E2A;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x6240;&#x5C5E;&#x7C7B;&#x7684;&#x9759;&#x6001; synchronized&#x65B9;&#x6CD5;&#xFF0C;&#x662F;&#x5141;&#x8BB8;&#x7684;&#xFF0C;&#x4E0D;&#x4F1A;&#x53D1;&#x751F;&#x4E92;&#x65A5;&#x73B0;&#x8C61;&#xFF0C;</p>
+<p>&#x56E0;&#x4E3A;&#x8BBF;&#x95EE;&#x9759;&#x6001; synchronized &#x65B9;&#x6CD5;&#x5360;&#x7528;&#x7684;&#x9501;&#x662F;&#x5F53;&#x524D;&#x7C7B;&#x7684;class&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x8BBF;&#x95EE;&#x975E;&#x9759;&#x6001; synchronized &#x65B9;&#x6CD5;&#x5360;&#x7528;&#x7684;&#x9501;&#x662F;&#x5F53;&#x524D;&#x5B9E;&#x4F8B;&#x5BF9;&#x8C61;&#x9501;</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="&#x4EE3;&#x7801;&#x5757;"><a name="&#x4EE3;&#x7801;&#x5757;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x5757;"><i class="fa fa-link" aria-hidden="true"></i></a>1.1.3. &#x4EE3;&#x7801;&#x5757;</h3>
+<ul>
+<li>synchronized(this) &#x5F53;&#x62EC;&#x53F7;&#x5185;&#x4E3A;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#x65F6;&#xFF0C;&#x9501;&#x7684;&#x662F;&#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;</li>
+<li>synchronized(AccountingSync.class) &#x5982;&#x679C;&#x4E3A;class&#xFF0C;&#x5219;&#x9501;&#x7684;class&#x5BF9;&#x8C61;</li>
+</ul>
+<h2 id="synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;"><a name="synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;" class="anchor-navigation-ex-anchor" href="#synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. synchronized&#x5E95;&#x5C42;&#x539F;&#x7406;</h2>
+<p>JVM&#x57FA;&#x4E8E;&#x8FDB;&#x5165;&#x548C;&#x9000;&#x51FA;Monitor&#x5BF9;&#x8C61;&#x6765;&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x540C;&#x6B65;&#x548C;&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#xFF0C;&#x4F46;&#x4E24;&#x8005;&#x7684;&#x5B9E;&#x73B0;&#x7EC6;&#x8282;&#x4E0D;&#x4E00;&#x6837;&#x3002;&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter &#x548C;monitorexit&#x6307;&#x4EE4;&#x5B9E;&#x73B0;&#x7684;&#xFF0C;&#x800C;&#x65B9;&#x6CD5;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;ACC_SYNCHRONIZED&#x8FDB;&#x884C;&#x5B9E;&#x73B0;</p>
+<h3 id="&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter-&#x548C;-monitorexit-&#x6307;&#x4EE4;&#x5B9E;&#x73B0;"><a name="&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter-&#x548C;-monitorexit-&#x6307;&#x4EE4;&#x5B9E;&#x73B0;" class="anchor-navigation-ex-anchor" href="#&#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter-&#x548C;-monitorexit-&#x6307;&#x4EE4;&#x5B9E;&#x73B0;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.1. &#x4EE3;&#x7801;&#x5757;&#x540C;&#x6B65;&#x662F;&#x4F7F;&#x7528;monitorenter &#x548C; monitorexit &#x6307;&#x4EE4;&#x5B9E;&#x73B0;</h3>
+<blockquote>
+<p>monitorenter&#x6307;&#x4EE4;&#x662F;&#x5728;&#x7F16;&#x8BD1;&#x540E;&#x63D2;&#x5165;&#x5230;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#xFF0C;&#x800C;monitorexit&#x662F;&#x63D2;&#x5165;&#x5230;&#x65B9;&#x6CD5;&#x7ED3;&#x675F;&#x5904;&#x548C;&#x5F02;&#x5E38;&#x5904;</p>
+<p>JVM&#x8981;&#x4FDD;&#x8BC1;&#x6BCF;&#x4E2A;monitorenter&#x5FC5;&#x987B;&#x6709;&#x5BF9;&#x5E94;&#x7684;monitorexit&#x4E0E;&#x4E4B;&#x914D;&#x5BF9;&#x3002;&#x4EFB;&#x4F55;&#x5BF9;&#x8C61;&#x90FD;&#x6709;&#x4E00;&#x4E2A;monitor&#x4E0E;&#x4E4B;&#x5173;&#x8054;&#xFF0C;&#x5F53;&#x4E14;&#x4E00;&#x4E2A;monitor&#x88AB;&#x6301;&#x6709;&#x540E;&#xFF0C;&#x5B83;&#x5C06;&#x5904;&#x4E8E;&#x9501;&#x5B9A;&#x72B6;&#x6001;&#x3002;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x5230;monitorenter &#x6307;&#x4EE4;&#x65F6;&#xFF0C;&#x5C06;&#x4F1A;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x6240;&#x5BF9;&#x5E94;&#x7684;monitor&#x7684;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x5373;&#x5C1D;&#x8BD5;&#x83B7;&#x5F97;&#x5BF9;&#x8C61;&#x7684;&#x9501;</p>
+</blockquote>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SyncCodeBlock</span> <span class="token punctuation">{</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token comment">//&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5E93;</span>
+       <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           i<span class="token operator">++</span><span class="token punctuation">;</span>
+       <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FDB;&#x884C;&#x53CD;&#x7F16;&#x8BD1;&#x4E0A;&#x8FF0;&#x4EE3;&#x7801;:</p>
+<pre class="language-"><code>Classfile /Users/zejian/Downloads/Java8_Action/src/main/java/com/zejian/concurrencys/SyncCodeBlock.class
+  Last modified 2017-6-2; size 426 bytes
+  MD5 checksum c80bc322c87b312de760942820b4fed5
+  Compiled from &quot;SyncCodeBlock.java&quot;
+public class com.zejian.concurrencys.SyncCodeBlock
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+  //........&#x7701;&#x7565;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x6570;&#x636E;
+  //&#x6784;&#x9020;&#x51FD;&#x6570;
+  public com.zejian.concurrencys.SyncCodeBlock();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object.&quot;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>init</span><span class="token punctuation">&gt;</span></span>&quot;:()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+  //===========&#x4E3B;&#x8981;&#x770B;&#x770B;syncTask&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;================
+  public void syncTask();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=3, locals=3, args_size=1
+         0: aload_0
+         1: dup
+         2: astore_1
+         3: monitorenter  //&#x6CE8;&#x610F;&#x6B64;&#x5904;&#xFF0C;&#x8FDB;&#x5165;&#x540C;&#x6B65;&#x65B9;&#x6CD5;
+         4: aload_0
+         5: dup
+         6: getfield      #2             // Field i:I
+         9: iconst_1
+        10: iadd
+        11: putfield      #2            // Field i:I
+        14: aload_1
+        15: monitorexit   //&#x6CE8;&#x610F;&#x6B64;&#x5904;&#xFF0C;&#x9000;&#x51FA;&#x540C;&#x6B65;&#x65B9;&#x6CD5;
+        16: goto          24
+        19: astore_2
+        20: aload_1
+        21: monitorexit //&#x6CE8;&#x610F;&#x6B64;&#x5904;&#xFF0C;&#x9000;&#x51FA;&#x540C;&#x6B65;&#x65B9;&#x6CD5;
+        22: aload_2
+        23: athrow
+        24: return
+      Exception table:
+      //&#x7701;&#x7565;&#x5176;&#x4ED6;&#x5B57;&#x8282;&#x7801;.......
+}
+SourceFile: &quot;SyncCodeBlock.java&quot;
+</code></pre><ul>
+<li>&#x4ECE;&#x5B57;&#x8282;&#x7801;&#x4E2D;&#x53EF;&#x77E5;&#x540C;&#x6B65;&#x8BED;&#x53E5;&#x5757;&#x7684;&#x5B9E;&#x73B0;&#x4F7F;&#x7528;&#x7684;&#x662F; <code>monitorenter</code> &#x548C; <code>monitorexit</code> &#x6307;&#x4EE4;</li>
+<li>&#x5176;&#x4E2D;<code>monitorenter</code>&#x6307;&#x4EE4;&#x6307;&#x5411;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;&#xFF0C;<code>monitorexit</code>&#x6307;&#x4EE4;&#x5219;&#x6307;&#x660E;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x7684;&#x7ED3;&#x675F;&#x4F4D;&#x7F6E;&#xFF0C;&#x5F53;&#x6267;&#x884C;<code>monitorenter</code>&#x6307;&#x4EE4;&#x65F6;&#xFF0C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C06;&#x8BD5;&#x56FE;&#x83B7;&#x53D6; <code>objectref(&#x5373;&#x5BF9;&#x8C61;&#x9501;)</code> &#x6240;&#x5BF9;&#x5E94;&#x7684; <code>monitor</code> &#x7684;&#x6301;&#x6709;&#x6743;</li>
+<li>&#x5F53; <code>objectref</code> &#x7684; <code>monitor</code> &#x7684;&#x8FDB;&#x5165;&#x8BA1;&#x6570;&#x5668;&#x4E3A; 0&#xFF0C;&#x90A3;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x6210;&#x529F;&#x53D6;&#x5F97; <code>monitor</code>&#xFF0C;&#x5E76;&#x5C06;&#x8BA1;&#x6570;&#x5668;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A; 1&#xFF0C;&#x53D6;&#x9501;&#x6210;&#x529F;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x62E5;&#x6709; <code>objectref</code> &#x7684; <code>monitor</code> &#x7684;&#x6301;&#x6709;&#x6743;&#xFF0C;&#x90A3;&#x5B83;&#x53EF;&#x4EE5;&#x91CD;&#x5165;&#x8FD9;&#x4E2A; <code>monitor</code> (&#x5173;&#x4E8E;&#x91CD;&#x5165;&#x6027;&#x7A0D;&#x540E;&#x4F1A;&#x5206;&#x6790;)&#xFF0C;&#x91CD;&#x5165;&#x65F6;&#x8BA1;&#x6570;&#x5668;&#x7684;&#x503C;&#x4E5F;&#x4F1A;&#x52A0; 1&#x3002;</li>
+<li>&#x5018;&#x82E5;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x5DF2;&#x7ECF;&#x62E5;&#x6709; <code>objectref</code> &#x7684; <code>monitor</code> &#x7684;&#x6240;&#x6709;&#x6743;&#xFF0C;&#x90A3;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x5C06;&#x88AB;&#x963B;&#x585E;&#xFF0C;&#x76F4;&#x5230;&#x6B63;&#x5728;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#xFF0C;&#x5373;<code>monitorexit</code>&#x6307;&#x4EE4;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x5C06;&#x91CA;&#x653E; <code>monitor</code>(&#x9501;)&#x5E76;&#x8BBE;&#x7F6E;&#x8BA1;&#x6570;&#x5668;&#x503C;&#x4E3A;0 &#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x5C06;&#x6709;&#x673A;&#x4F1A;&#x6301;&#x6709; <code>monitor</code> </li>
+<li>&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F;&#x7F16;&#x8BD1;&#x5668;&#x5C06;&#x4F1A;&#x786E;&#x4FDD;&#x65E0;&#x8BBA;&#x65B9;&#x6CD5;&#x901A;&#x8FC7;&#x4F55;&#x79CD;&#x65B9;&#x5F0F;&#x5B8C;&#x6210;&#xFF0C;&#x65B9;&#x6CD5;&#x4E2D;&#x8C03;&#x7528;&#x8FC7;&#x7684;&#x6BCF;&#x6761; <code>monitorenter</code> &#x6307;&#x4EE4;&#x90FD;&#x6709;&#x6267;&#x884C;&#x5176;&#x5BF9;&#x5E94; <code>monitorexit</code> &#x6307;&#x4EE4;&#xFF0C;&#x800C;&#x65E0;&#x8BBA;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x6B63;&#x5E38;&#x7ED3;&#x675F;&#x8FD8;&#x662F;&#x5F02;&#x5E38;&#x7ED3;&#x675F;&#x3002;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x5728;&#x65B9;&#x6CD5;&#x5F02;&#x5E38;&#x5B8C;&#x6210;&#x65F6; <code>monitorenter</code> &#x548C; <code>monitorexit</code> &#x6307;&#x4EE4;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x6B63;&#x786E;&#x914D;&#x5BF9;&#x6267;&#x884C;&#xFF0C;&#x7F16;&#x8BD1;&#x5668;&#x4F1A;&#x81EA;&#x52A8;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;&#xFF0C;&#x8FD9;&#x4E2A;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x5668;&#x58F0;&#x660E;&#x53EF;&#x5904;&#x7406;&#x6240;&#x6709;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x5B83;&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x7528;&#x6765;&#x6267;&#x884C; monitorexit &#x6307;&#x4EE4;&#x3002;&#x4ECE;&#x5B57;&#x8282;&#x7801;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#x591A;&#x4E86;&#x4E00;&#x4E2A;monitorexit&#x6307;&#x4EE4;&#xFF0C;&#x5B83;&#x5C31;&#x662F;&#x5F02;&#x5E38;&#x7ED3;&#x675F;&#x65F6;&#x88AB;&#x6267;&#x884C;&#x7684;&#x91CA;&#x653E;<code>monitor</code>&#x7684;&#x6307;&#x4EE4;&#x3002;</li>
+</ul>
+<h3 id="&#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;"><a name="&#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;" class="anchor-navigation-ex-anchor" href="#&#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.2. &#x5BF9;&#x8C61;&#x5934;&#x7ED3;&#x6784;</h3>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/ES/%E5%AF%B9%E8%B1%A1%E5%A4%B4.jpg" alt="Mark Word"></p>
+<h3 id="&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684;-accsynchronized-&#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;"><a name="&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684;-accsynchronized-&#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;" class="anchor-navigation-ex-anchor" href="#&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684;-accsynchronized-&#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2.3. &#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x7531;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x8BFB;&#x53D6;&#x8FD0;&#x884C;&#x65F6;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x65B9;&#x6CD5;&#x7684; ACC_SYNCHRONIZED &#x6807;&#x5FD7;&#x6765;&#x9690;&#x5F0F;&#x5B9E;&#x73B0;&#x7684;</h3>
+<p>&#x65B9;&#x6CD5;&#x7EA7;&#x7684;&#x540C;&#x6B65;&#x662F;&#x9690;&#x5F0F;&#xFF0C;&#x5373;&#x65E0;&#x9700;&#x901A;&#x8FC7;&#x5B57;&#x8282;&#x7801;&#x6307;&#x4EE4;&#x6765;&#x63A7;&#x5236;&#x7684;&#xFF0C;&#x5B83;&#x5B9E;&#x73B0;&#x5728;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x548C;&#x8FD4;&#x56DE;&#x64CD;&#x4F5C;&#x4E4B;&#x4E2D;&#x3002;JVM&#x53EF;&#x4EE5;&#x4ECE;&#x65B9;&#x6CD5;&#x5E38;&#x91CF;&#x6C60;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x8868;&#x7ED3;&#x6784;(method_info Structure) &#x4E2D;&#x7684; <code>ACC_SYNCHRONIZED</code> &#x8BBF;&#x95EE;&#x6807;&#x5FD7;&#x533A;&#x5206;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x5426;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x3002;</p>
+<ol>
+<li>&#x5F53;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x8C03;&#x7528;&#x6307;&#x4EE4;&#x5C06;&#x4F1A; &#x68C0;&#x67E5;&#x65B9;&#x6CD5;&#x7684; ACC_SYNCHRONIZED &#x8BBF;&#x95EE;&#x6807;&#x5FD7;&#x662F;&#x5426;&#x88AB;&#x8BBE;&#x7F6E;</li>
+<li>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;&#xFF0C;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x5C06;&#x5148;&#x6301;&#x6709;monitor&#xFF08;&#x865A;&#x62DF;&#x673A;&#x89C4;&#x8303;&#x4E2D;&#x7528;&#x7684;&#x662F;&#x7BA1;&#x7A0B;&#x4E00;&#x8BCD;&#xFF09;&#xFF0C; &#x7136;&#x540E;&#x518D;&#x6267;&#x884C;&#x65B9;&#x6CD5;&#xFF0C;&#x6700;&#x540E;&#x518D;&#x65B9;&#x6CD5;&#x5B8C;&#x6210;(&#x65E0;&#x8BBA;&#x662F;&#x6B63;&#x5E38;&#x5B8C;&#x6210;&#x8FD8;&#x662F;&#x975E;&#x6B63;&#x5E38;&#x5B8C;&#x6210;)&#x65F6;&#x91CA;&#x653E;monitor&#x3002;</li>
+<li>&#x5728;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x671F;&#x95F4;&#xFF0C;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x4E86;monitor&#xFF0C;&#x5176;&#x4ED6;&#x4EFB;&#x4F55;&#x7EBF;&#x7A0B;&#x90FD;&#x65E0;&#x6CD5;&#x518D;&#x83B7;&#x5F97;&#x540C;&#x4E00;&#x4E2A;monitor&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x671F;&#x95F4;&#x629B;&#x51FA;&#x4E86;&#x5F02;&#x5E38;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x65B9;&#x6CD5;&#x5185;&#x90E8;&#x65E0;&#x6CD5;&#x5904;&#x7406;&#x6B64;&#x5F02;&#x5E38;&#xFF0C;&#x90A3;&#x8FD9;&#x4E2A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x6240;&#x6301;&#x6709;&#x7684;monitor&#x5C06;&#x5728;&#x5F02;&#x5E38;&#x629B;&#x5230;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E4B;&#x5916;&#x65F6;&#x81EA;&#x52A8;&#x91CA;&#x653E;&#x3002;</li>
+</ol>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SyncMethod</span> <span class="token punctuation">{</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">int</span> i<span class="token punctuation">;</span>
+
+   <span class="token keyword">public</span> <span class="token keyword">synchronized</span> <span class="token keyword">void</span> <span class="token function">syncTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           i<span class="token operator">++</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code>Classfile /Users/zejian/Downloads/Java8_Action/src/main/java/com/zejian/concurrencys/SyncMethod.class
+  Last modified 2017-6-2; size 308 bytes
+  MD5 checksum f34075a8c059ea65e4cc2fa610e0cd94
+  Compiled from &quot;SyncMethod.java&quot;
+public class com.zejian.concurrencys.SyncMethod
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool;
+
+   //&#x7701;&#x7565;&#x6CA1;&#x5FC5;&#x8981;&#x7684;&#x5B57;&#x8282;&#x7801;
+  //==================syncTask&#x65B9;&#x6CD5;======================
+  public synchronized void syncTask();
+    descriptor: ()V
+    //&#x65B9;&#x6CD5;&#x6807;&#x8BC6;ACC_PUBLIC&#x4EE3;&#x8868;public&#x4FEE;&#x9970;&#xFF0C;ACC_SYNCHRONIZED&#x6307;&#x660E;&#x8BE5;&#x65B9;&#x6CD5;&#x4E3A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;
+    flags: ACC_PUBLIC, ACC_SYNCHRONIZED
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: dup
+         2: getfield      #2                  // Field i:I
+         5: iconst_1
+         6: iadd
+         7: putfield      #2                  // Field i:I
+        10: return
+      LineNumberTable:
+        line 12: 0
+        line 13: 10
+}
+SourceFile: &quot;SyncMethod.java&quot;
+</code></pre><blockquote>
+<p>synchronized&#x4FEE;&#x9970;&#x7684;&#x65B9;&#x6CD5;&#x5E76;&#x6CA1;&#x6709;monitorenter&#x6307;&#x4EE4;&#x548C;monitorexit&#x6307;&#x4EE4;&#xFF0C;
+&#x53D6;&#x5F97;&#x4EE3;&#x4E4B;&#x7684;&#x786E;&#x5B9E;&#x662F;ACC_SYNCHRONIZED&#x6807;&#x8BC6;&#xFF0C;&#x8BE5;&#x6807;&#x8BC6;&#x6307;&#x660E;&#x4E86;&#x8BE5;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x4E2A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;JVM&#x901A;&#x8FC7;&#x8BE5;ACC_SYNCHRONIZED&#x8BBF;&#x95EE;&#x6807;&#x5FD7;&#x6765;&#x8FA8;&#x522B;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x5426;&#x58F0;&#x660E;&#x4E3A;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#xFF0C;
+&#x4ECE;&#x800C;&#x6267;&#x884C;&#x76F8;&#x5E94;&#x7684;&#x540C;&#x6B65;&#x8C03;&#x7528;&#x3002;&#x8FD9;&#x4FBF;&#x662F;synchronized&#x9501;&#x5728;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x548C;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x4E0A;&#x5B9E;&#x73B0;&#x7684;&#x57FA;&#x672C;&#x539F;&#x7406;</p>
+</blockquote>
+<h2 id="synchronized&#x7684;&#x4F18;&#x5316;&#x9501;&#x5347;&#x7EA7;"><a name="synchronized&#x7684;&#x4F18;&#x5316;&#x9501;&#x5347;&#x7EA7;" class="anchor-navigation-ex-anchor" href="#synchronized&#x7684;&#x4F18;&#x5316;&#x9501;&#x5347;&#x7EA7;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3. synchronized&#x7684;&#x4F18;&#x5316;(&#x9501;&#x5347;&#x7EA7;)</h2>
+<p>&#x9501;&#x7684;&#x72B6;&#x6001;&#x603B;&#x5171;&#x6709;&#x56DB;&#x79CD;&#xFF0C;&#x65E0;&#x9501;&#x72B6;&#x6001;&#x3001;&#x504F;&#x5411;&#x9501;&#x3001;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x548C;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#x3002;&#x968F;&#x7740;&#x9501;&#x7684;&#x7ADE;&#x4E89;&#xFF0C;&#x9501;&#x53EF;&#x4EE5;&#x4ECE;&#x504F;&#x5411;&#x9501;&#x5347;&#x7EA7;&#x5230;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#xFF0C;&#x518D;&#x5347;&#x7EA7;&#x4E3A;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#xFF0C;&#x4F46;&#x662F;&#x9501;&#x7684;&#x5347;&#x7EA7;&#x662F;&#x5355;&#x5411;&#x7684;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x53EA;&#x80FD;&#x4ECE;&#x4F4E;&#x5230;&#x9AD8;&#x5347;&#x7EA7;&#xFF0C;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x9501;&#x7684;&#x964D;&#x7EA7;</p>
+<h3 id="&#x504F;&#x5411;&#x9501;"><a name="&#x504F;&#x5411;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x504F;&#x5411;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.1. &#x504F;&#x5411;&#x9501;</h3>
+<p>&#x5927;&#x591A;&#x6570;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x9501;&#x4E0D;&#x4EC5;&#x4E0D;&#x5B58;&#x5728;&#x591A;&#x7EBF;&#x7A0B;&#x7ADE;&#x4E89;&#xFF0C;&#x800C;&#x4E14;&#x603B;&#x662F;&#x7531;&#x540C;&#x4E00;&#x7EBF;&#x7A0B;&#x591A;&#x6B21;&#x83B7;&#x5F97;&#xFF0C;&#x56E0;&#x6B64;&#x4E3A;&#x4E86;&#x51CF;&#x5C11;&#x540C;&#x4E00;&#x7EBF;&#x7A0B;&#x83B7;&#x53D6;&#x9501;(&#x4F1A;&#x6D89;&#x53CA;&#x5230;&#x4E00;&#x4E9B;CAS&#x64CD;&#x4F5C;,&#x8017;&#x65F6;)&#x7684;&#x4EE3;&#x4EF7;&#x800C;&#x5F15;&#x5165;&#x504F;&#x5411;&#x9501;</p>
+<p>&#x504F;&#x5411;&#x9501;&#x7684;&#x6838;&#x5FC3;&#x601D;&#x60F3;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x83B7;&#x5F97;&#x4E86;&#x9501;&#xFF0C;&#x90A3;&#x4E48;&#x9501;&#x5C31;&#x8FDB;&#x5165;&#x504F;&#x5411;&#x6A21;&#x5F0F;&#xFF0C;&#x6B64;&#x65F6;Mark Word &#x7684;&#x7ED3;&#x6784;&#x4E5F;&#x53D8;&#x4E3A;&#x504F;&#x5411;&#x9501;&#x7ED3;&#x6784;&#xFF0C;&#x5F53;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x518D;&#x6B21;&#x8BF7;&#x6C42;&#x9501;&#x65F6;&#xFF0C;&#x65E0;&#x9700;&#x518D;&#x505A;&#x4EFB;&#x4F55;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x5373;&#x83B7;&#x53D6;&#x9501;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x7701;&#x53BB;&#x4E86;&#x5927;&#x91CF;&#x6709;&#x5173;&#x9501;&#x7533;&#x8BF7;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x4E5F;&#x5C31;&#x63D0;&#x4F9B;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#x3002;</p>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/ES/%E5%81%8F%E5%90%91%E9%94%81.jpg" alt="&#x504F;&#x5411;&#x9501;">
+&#x5018;&#x82E5;&#x504F;&#x5411;&#x9501;&#x5931;&#x8D25;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x5E76;&#x4E0D;&#x4F1A;&#x7ACB;&#x5373;&#x5347;&#x7EA7;&#x4E3A;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#xFF0C;&#x5B83;&#x8FD8;&#x4F1A;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x4E00;&#x79CD;&#x79F0;&#x4E3A;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x7684;&#x4F18;&#x5316;&#x624B;&#x6BB5;(1.6&#x4E4B;&#x540E;&#x52A0;&#x5165;&#x7684;)&#xFF0C;&#x6B64;&#x65F6;Mark Word &#x7684;&#x7ED3;&#x6784;&#x53D8;&#x4E3A;&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x7684;&#x7ED3;&#x6784;&#x3002;</p>
+<h3 id="&#x8F7B;&#x91CF;&#x7EA7;&#x9501;"><a name="&#x8F7B;&#x91CF;&#x7EA7;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x8F7B;&#x91CF;&#x7EA7;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.2. &#x8F7B;&#x91CF;&#x7EA7;&#x9501;</h3>
+<ol>
+<li>&#x7EBF;&#x7A0B;&#x5728;&#x6267;&#x884C;&#x540C;&#x6B65;&#x5757;&#x4E4B;&#x524D;&#xFF0C;JVM&#x4F1A;&#x5148;&#x5728;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x7684;&#x6808;&#x6862;&#x4E2D;&#x521B;&#x5EFA;&#x7528;&#x4E8E;&#x5B58;&#x50A8;&#x9501;&#x8BB0;&#x5F55;&#x7684;&#x7A7A;&#x95F4;&#xFF0C;&#x5E76;&#x5C06;&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;Mark Word&#x590D;&#x5236;&#x5230;&#x9501;&#x8BB0;&#x5F55;&#x4E2D;&#xFF0C;&#x5B98;&#x65B9;&#x79F0;&#x4E3A;Displaced Mark Word&#x3002;</li>
+<li>&#x7136;&#x540E;&#x7EBF;&#x7A0B;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528; CAS&#x5C06;&#x5BF9;&#x8C61;&#x5934;&#x4E2D;&#x7684;Mark Word&#x66FF;&#x6362;&#x4E3A;&#x6307;&#x5411;&#x9501;&#x8BB0;&#x5F55;&#x7684;&#x6307;&#x9488;&#x3002;&#x5982;&#x679C;&#x6210;&#x529F;&#xFF0C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x83B7;&#x5F97;&#x9501;&#xFF0C;&#x5982;&#x679C;&#x5931;&#x8D25;&#xFF0C;&#x8868;&#x793A;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x7ADE;&#x4E89;&#x9501;&#xFF0C;&#x5F53;&#x524D;&#x7EBF;&#x7A0B;&#x4FBF;&#x5C1D;&#x8BD5;&#x4F7F;&#x7528;&#x81EA;&#x65CB;&#x6765;&#x83B7;&#x53D6;&#x9501;&#x3002;</li>
+<li>&#x81EA;&#x65CB;&#x9501;&#x957F;&#x65F6;&#x95F4;&#x62FF;&#x4E0D;&#x5230;&#x9501;&#x5347;&#x7EA7;&#x4E3A;&#x91CD;&#x91CF;&#x7EA7;&#x9501;</li>
+<li>&#x8F7B;&#x91CF;&#x7EA7;&#x89E3;&#x9501;&#x65F6;&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;&#x539F;&#x5B50;&#x7684;CAS&#x64CD;&#x4F5C;&#x5C06;Displaced Mark Word&#x66FF;&#x6362;&#x56DE;&#x5230;&#x5BF9;&#x8C61;&#x5934;&#xFF0C;&#x5982;&#x679C;&#x6210;&#x529F;&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6CA1;&#x6709;&#x7ADE;&#x4E89;&#x53D1;&#x751F;&#x3002;&#x5982;&#x679C;&#x5931;&#x8D25;&#xFF0C;&#x8868;&#x793A;&#x5F53;&#x524D;&#x9501;&#x5B58;&#x5728;&#x7ADE;&#x4E89;&#xFF0C;&#x9501;&#x5C31;&#x4F1A;&#x81A8;&#x80C0;&#x6210;&#x91CD;&#x91CF;&#x7EA7;&#x9501;&#x3002;
+<img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/ES/%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81%E5%8D%87%E7%BA%A7%E8%BF%87%E7%A8%8B.jpg" alt="&#x8F7B;&#x91CF;&#x7EA7;&#x9501;&#x5347;&#x7EA7;"></li>
+</ol>
+<h3 id="&#x91CD;&#x91CF;&#x7EA7;&#x9501;"><a name="&#x91CD;&#x91CF;&#x7EA7;&#x9501;" class="anchor-navigation-ex-anchor" href="#&#x91CD;&#x91CF;&#x7EA7;&#x9501;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.3. &#x91CD;&#x91CF;&#x7EA7;&#x9501;</h3>
+<p>&#x7EBF;&#x7A0B;&#x963B;&#x585E;&#x5C31;&#x5B8C;&#x4E8B;</p>
+<h3 id="&#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;"><a name="&#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;" class="anchor-navigation-ex-anchor" href="#&#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.3.4. &#x4F18;&#x7F3A;&#x70B9;&#x5BF9;&#x6BD4;</h3>
+<p><img src="https://youdaoyun1.oss-cn-shenzhen.aliyuncs.com/ES/%E9%94%81%E4%BC%98%E5%8A%A3%E5%AF%B9%E6%AF%94.jpg" alt="&#x9501;&#x4F18;&#x52A3;&#x5BF9;&#x6BD4;"></p>
+<h2 id="&#x9501;&#x7C97;&#x5316;"><a name="&#x9501;&#x7C97;&#x5316;" class="anchor-navigation-ex-anchor" href="#&#x9501;&#x7C97;&#x5316;"><i class="fa fa-link" aria-hidden="true"></i></a>1.4. &#x9501;&#x7C97;&#x5316;</h2>
+<p>&#x901A;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x591A;&#x7EBF;&#x7A0B;&#x95F4;&#x7684;&#x6709;&#x6548;&#x5E76;&#x53D1;&#xFF0C;&#x4F1A;&#x8981;&#x6C42;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x9501;&#x7684;&#x65F6;&#x95F4;&#x5C3D;&#x53EF;&#x80FD;&#x77ED;&#xFF0C;&#x4F46;&#x662F;&#x5927;&#x67D0;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#x5BF9;&#x540C;&#x4E00;&#x4E2A;&#x9501;&#x4E0D;&#x95F4;&#x65AD;&#x3001;&#x9AD8;&#x9891;&#x5730;&#x8BF7;&#x6C42;&#x3001;&#x540C;&#x6B65;&#x4E0E;&#x91CA;&#x653E;&#xFF0C;&#x4F1A;&#x6D88;&#x8017;&#x6389;&#x4E00;&#x5B9A;&#x7684;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#xFF0C;
+&#x56E0;&#x4E3A;&#x9501;&#x7684;&#x8BB2;&#x6C42;&#x3001;&#x540C;&#x6B65;&#x4E0E;&#x91CA;&#x653E;&#x672C;&#x8EAB;&#x4F1A;&#x5E26;&#x6765;&#x6027;&#x80FD;&#x635F;&#x8017;&#xFF0C;&#x8FD9;&#x6837;&#x9AD8;&#x9891;&#x7684;&#x9501;&#x8BF7;&#x6C42;&#x5C31;&#x53CD;&#x800C;&#x4E0D;&#x5229;&#x4E8E;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x7684;&#x4F18;&#x5316;&#x4E86;&#xFF0C;&#x867D;&#x7136;&#x5355;&#x6B21;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x65F6;&#x95F4;&#x53EF;&#x80FD;&#x5F88;&#x77ED;&#x3002;&#x9501;&#x7C97;&#x5316;&#x5C31;&#x662F;&#x544A;&#x8BC9;&#x6211;&#x4EEC;&#x4EFB;&#x4F55;&#x4E8B;&#x60C5;&#x90FD;&#x6709;&#x4E2A;&#x5EA6;&#xFF0C;&#x6709;&#x4E9B;&#x60C5;&#x51B5;&#x4E0B;&#x6211;&#x4EEC;&#x53CD;&#x800C;&#x5E0C;&#x671B;&#x628A;&#x5F88;&#x591A;&#x6B21;&#x9501;&#x7684;&#x8BF7;&#x6C42;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;
+&#x4EE5;&#x964D;&#x4F4E;&#x77ED;&#x65F6;&#x95F4;&#x5185;&#x5927;&#x91CF;&#x9501;&#x8BF7;&#x6C42;&#x3001;&#x540C;&#x6B65;&#x3001;&#x91CA;&#x653E;&#x5E26;&#x6765;&#x7684;&#x6027;&#x80FD;&#x635F;&#x8017;</p>
+<pre class="language-"><code class="lang-java">
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">//do some thing</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">//&#x8FD9;&#x662F;&#x8FD8;&#x6709;&#x4E00;&#x4E9B;&#x4EE3;&#x7801;&#xFF0C;&#x505A;&#x5176;&#x5B83;&#x4E0D;&#x9700;&#x8981;&#x540C;&#x6B65;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x4F46;&#x80FD;&#x5F88;&#x5FEB;&#x6267;&#x884C;&#x5B8C;&#x6BD5;</span>
+    <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment">//do other thing</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x662F;&#x6709;&#x4E24;&#x5757;&#x9700;&#x8981;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#xFF0C;&#x4F46;&#x5728;&#x8FD9;&#x4E24;&#x5757;&#x9700;&#x8981;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x7684;&#x4EE3;&#x7801;&#x4E4B;&#x95F4;&#xFF0C;&#x9700;&#x8981;&#x505A;&#x4E00;&#x4E9B;&#x5176;&#x5B83;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x800C;&#x8FD9;&#x4E9B;&#x5DE5;&#x4F5C;&#x53EA;&#x4F1A;&#x82B1;&#x8D39;&#x5F88;&#x5C11;&#x7684;&#x65F6;&#x95F4;&#xFF0C;
+&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x8FD9;&#x4E9B;&#x5DE5;&#x4F5C;&#x4EE3;&#x7801;&#x653E;&#x5165;&#x9501;&#x5185;&#xFF0C;&#x5C06;&#x4E24;&#x4E2A;&#x540C;&#x6B65;&#x4EE3;&#x7801;&#x5757;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#xFF0C;&#x4EE5;&#x964D;&#x4F4E;&#x591A;&#x6B21;&#x9501;&#x8BF7;&#x6C42;&#x3001;&#x540C;&#x6B65;&#x3001;&#x91CA;&#x653E;&#x5E26;&#x6765;&#x7684;&#x7CFB;&#x7EDF;&#x6027;&#x80FD;&#x6D88;&#x8017;&#xFF0C;&#x5408;&#x5E76;&#x540E;&#x7684;&#x4EE3;&#x7801;&#x5982;&#x4E0B;:</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doSomethingMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">//&#x8FDB;&#x884C;&#x9501;&#x7C97;&#x5316;&#xFF1A;&#x6574;&#x5408;&#x6210;&#x4E00;&#x6B21;&#x9501;&#x8BF7;&#x6C42;&#x3001;&#x540C;&#x6B65;&#x3001;&#x91CA;&#x653E;</span>
+    <span class="token keyword">synchronized</span><span class="token punctuation">(</span>lock<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+       <span class="token comment">//do some thing </span>
+       <span class="token comment">//&#x505A;&#x5176;&#x5B83;&#x4E0D;&#x9700;&#x8981;&#x540C;&#x6B65;&#x4F46;&#x80FD;&#x5F88;&#x5FEB;&#x6267;&#x884C;&#x5B8C;&#x7684;&#x5DE5;&#x4F5C;</span>
+        <span class="token comment">//do other thing</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="&#x9501;&#x6D88;&#x9664;"><a name="&#x9501;&#x6D88;&#x9664;" class="anchor-navigation-ex-anchor" href="#&#x9501;&#x6D88;&#x9664;"><i class="fa fa-link" aria-hidden="true"></i></a>1.5. &#x9501;&#x6D88;&#x9664;</h2>
+<p>&#x9501;&#x6D88;&#x9664;&#x662F;&#x53D1;&#x751F;&#x5728;&#x7F16;&#x8BD1;&#x5668;&#x7EA7;&#x522B;&#x7684;&#x4E00;&#x79CD;&#x9501;&#x4F18;&#x5316;&#x65B9;&#x5F0F;&#x3002;
+&#x6709;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x5199;&#x7684;&#x4EE3;&#x7801;&#x5B8C;&#x5168;&#x4E0D;&#x9700;&#x8981;&#x52A0;&#x9501;&#xFF0C;&#x5374;&#x6267;&#x884C;&#x4E86;&#x52A0;&#x9501;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#xFF0C;StringBuffer&#x7C7B;&#x7684;append&#x64CD;&#x4F5C;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@Overridepublic</span>
+ <span class="token keyword">synchronized</span> <span class="token class-name">StringBuffer</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token class-name">String</span> str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    toStringCache <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4ECE;&#x6E90;&#x7801;&#x4E2D;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;append&#x65B9;&#x6CD5;&#x7528;&#x4E86;synchronized&#x5173;&#x952E;&#x8BCD;&#xFF0C;&#x5B83;&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#x3002;&#x4F46;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4EC5;&#x5728;&#x7EBF;&#x7A0B;&#x5185;&#x90E8;&#x628A;StringBuffer&#x5F53;&#x4F5C;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x4F7F;&#x7528;&#xFF1A;</p>
+<pre class="language-"><code class="lang-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>leeib<span class="token punctuation">.</span>thread</span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Demo</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+           <span class="token function">createStringBuffer</span><span class="token punctuation">(</span><span class="token string">&quot;Hyes&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&#x4E3A;&#x5206;&#x4EAB;&#x6280;&#x672F;&#x800C;&#x751F;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">long</span> timeCost <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> start<span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">&quot;createStringBuffer:&quot;</span> <span class="token operator">+</span> timeCost <span class="token operator">+</span> <span class="token string">&quot; ms&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">createStringBuffer</span><span class="token punctuation">(</span><span class="token class-name">String</span> str1<span class="token punctuation">,</span> <span class="token class-name">String</span> str2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">StringBuffer</span> sBuf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        sBuf<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>str1<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">// append&#x65B9;&#x6CD5;&#x662F;&#x540C;&#x6B65;&#x64CD;&#x4F5C;</span>
+        sBuf<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> sBuf<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4EE3;&#x7801;&#x4E2D;createStringBuffer&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x5C40;&#x90E8;&#x5BF9;&#x8C61;sBuf&#xFF0C;&#x5C31;&#x53EA;&#x5728;&#x8BE5;&#x65B9;&#x6CD5;&#x5185;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x6709;&#x6548;&#xFF0C;&#x4E0D;&#x540C;&#x7EBF;&#x7A0B;&#x540C;&#x65F6;&#x8C03;&#x7528;createStringBuffer()&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x90FD;&#x4F1A;&#x521B;&#x5EFA;&#x4E0D;&#x540C;&#x7684;sBuf&#x5BF9;&#x8C61;&#xFF0C;&#x56E0;&#x6B64;&#x6B64;&#x65F6;&#x7684;append&#x64CD;&#x4F5C;&#x82E5;&#x662F;&#x4F7F;&#x7528;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;&#x5C31;&#x662F;&#x767D;&#x767D;&#x6D6A;&#x8D39;&#x7684;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x8FD9;&#x65F6;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x7F16;&#x8BD1;&#x5668;&#x5C06;&#x5176;&#x4F18;&#x5316;&#xFF0C;&#x5C06;&#x9501;&#x6D88;&#x9664;&#xFF0C;&#x524D;&#x63D0;&#x662F;java&#x5FC5;&#x987B;&#x8FD0;&#x884C;&#x5728;server&#x6A21;&#x5F0F;&#xFF08;server&#x6A21;&#x5F0F;&#x4F1A;&#x6BD4;client&#x6A21;&#x5F0F;&#x4F5C;&#x66F4;&#x591A;&#x7684;&#x4F18;&#x5316;&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x5FC5;&#x987B;&#x5F00;&#x542F;&#x9003;&#x9038;&#x5206;&#x6790;:</p>
+<p>-server -XX:+DoEscapeAnalysis -XX:+EliminateLocks</p>
+<p>&#x5176;&#x4E2D;+DoEscapeAnalysis&#x8868;&#x793A;&#x5F00;&#x542F;&#x9003;&#x9038;&#x5206;&#x6790;&#xFF0C;+EliminateLocks&#x8868;&#x793A;&#x9501;&#x6D88;&#x9664;&#x3002;</p>
+<blockquote>
+<p>&#x9003;&#x9038;&#x5206;&#x6790;&#xFF1A;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5B83;&#x8981;&#x770B;sBuf&#x662F;&#x5426;&#x53EF;&#x80FD;&#x9003;&#x51FA;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF1F;&#x5982;&#x679C;&#x5C06;sBuf&#x4F5C;&#x4E3A;&#x65B9;&#x6CD5;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x8FDB;&#x884C;&#x8FD4;&#x56DE;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x5728;&#x65B9;&#x6CD5;&#x5916;&#x90E8;&#x53EF;&#x80FD;&#x88AB;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x5168;&#x5C40;&#x5BF9;&#x8C61;&#x4F7F;&#x7528;&#xFF0C;
+&#x5C31;&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x95EE;&#x9898;&#xFF0C;&#x8FD9;&#x65F6;&#x5C31;&#x53EF;&#x4EE5;&#x8BF4;sBuf&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x53D1;&#x751F;&#x9003;&#x9038;&#x4E86;&#xFF0C;&#x56E0;&#x800C;&#x4E0D;&#x5E94;&#x5C06;append&#x64CD;&#x4F5C;&#x7684;&#x9501;&#x6D88;&#x9664;&#xFF0C;&#x4F46;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x6CA1;&#x6709;&#x53D1;&#x751F;&#x9501;&#x9003;&#x9038;&#xFF0C;&#x9501;&#x6D88;&#x9664;&#x5C31;&#x53EF;&#x4EE5;&#x5E26;&#x6765;&#x4E00;&#x5B9A;&#x7684;&#x6027;&#x80FD;&#x63D0;&#x5347;&#x3002;</p>
+<p>&#x9501;&#x6D88;&#x9664;&#x662F;&#x6307;&#x865A;&#x62DF;&#x673A;&#x5373;&#x65F6;&#x7F16;&#x8BD1;&#x5668;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5BF9;&#x4E00;&#x4E9B;&#x4EE3;&#x7801;&#x4E0A;&#x8981;&#x6C42;&#x540C;&#x6B65;&#xFF0C;&#x4F46;&#x662F;&#x88AB;&#x68C0;&#x6D4B;&#x5230;&#x4E0D;&#x53EF;&#x80FD;&#x5B58;&#x5728;&#x5171;&#x4EAB;&#x6570;&#x636E;&#x7ADE;&#x4E89;&#x7684;&#x9501;&#x8FDB;&#x884C;&#x524A;&#x9664;&#x3002;&#x9501;&#x524A;&#x9664;&#x7684;&#x4E3B;&#x8981;&#x5224;&#x5B9A;&#x4F9D;&#x636E;&#x6765;&#x6E90;&#x4E8E;&#x9003;&#x9038;&#x5206;&#x6790;&#x7684;&#x6570;&#x636E;&#x652F;&#x6301;&#xFF0C;
+&#x5982;&#x679C;&#x5224;&#x65AD;&#x5230;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#x4E2D;&#xFF0C;&#x5728;&#x5806;&#x4E0A;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x4E0D;&#x4F1A;&#x9003;&#x9038;&#x51FA;&#x53BB;&#x88AB;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x8BBF;&#x95EE;&#x5230;&#xFF0C;&#x90A3;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x5B83;&#x4EEC;&#x5F53;&#x4F5C;&#x6808;&#x4E0A;&#x6570;&#x636E;&#x5BF9;&#x5F85;&#xFF0C;&#x8BA4;&#x4E3A;&#x5B83;&#x4EEC;&#x662F;&#x7EBF;&#x7A0B;&#x79C1;&#x6709;&#x7684;&#xFF0C;&#x540C;&#x6B65;&#x52A0;&#x9501;&#x81EA;&#x7136;&#x5C31;&#x65E0;&#x987B;&#x8FDB;&#x884C;</p>
+</blockquote>
+<footer class="page-footer-ex"> <span class="page-footer-ex-copyright"> &#x4F7F;&#x7528;<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">&#x77E5;&#x8BC6;&#x5171;&#x4EAB; &#x7F72;&#x540D;-&#x76F8;&#x540C;&#x65B9;&#x5F0F;&#x5171;&#x4EAB; 4.0&#x534F;&#x8BAE;</a>&#x53D1;&#x5E03; </span> &#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0; <span class="page-footer-ex-footer-update"> <i>updated</i> 2022-07-18 15:10:06 </span> </footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="6.阻塞队列.html" class="navigation navigation-prev " aria-label="Previous page: 6.阻塞队列">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="8.Synchronized与ReentrantLock.html" class="navigation navigation-next " aria-label="Next page: 8.Synchronized与ReentrantLock">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"7.Synchronized与锁升级","level":"1.2.3.7","depth":3,"next":{"title":"8.Synchronized与ReentrantLock","level":"1.2.3.8","depth":3,"path":"1.JAVA基础/并发编程/8.Synchronized与ReentrantLock.md","ref":"1.JAVA基础/并发编程/8.Synchronized与ReentrantLock.md","articles":[]},"previous":{"title":"6.阻塞队列","level":"1.2.3.6","depth":3,"path":"1.JAVA基础/并发编程/6.阻塞队列.md","ref":"1.JAVA基础/并发编程/6.阻塞队列.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters","copy-code-button","page-footer-ex","anchor-navigation-ex","expandable-chapters-small","prism","-highlight","-lunr","-search","theme-comscore","search-pro","splitter"],"ignores":["_book","node_modules"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{"css":["prismjs/themes/prism-solarizedlight.css"],"lang":{"flow":"typescript"}},"page-footer-ex":{"copyright":"使用[知识共享 署名-相同方式共享 4.0协议](https://creativecommons.org/licenses/by-sa/4.0/)发布","markdown":true,"update_format":"YYYY-MM-DD HH:mm:ss","update_label":"<i>updated</i>"},"splitter":{},"search-pro":{},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"associatedWithSummary":true,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"mode":"float","multipleH1":true,"pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"printLog":false,"showGoTop":true,"showLevel":true},"theme-comscore":{},"expandable-chapters-small":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"ALin","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学习笔记","links":{"sidebar":{"Home":"https://lucklin8.github.io/ALin.github.io/"}},"gitbook":"*","description":"ALin的学习博客"},"file":{"path":"1.JAVA基础/并发编程/7.Synchronized与锁升级.md","mtime":"2022-07-18T15:10:06.525Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-07-18T15:10:57.703Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters-small/expandable-chapters-small.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-pro/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-theme-comscore/test.js"></script>
+        
+    
+
+    </body>
+</html>
+

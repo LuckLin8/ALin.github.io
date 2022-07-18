@@ -1,0 +1,80 @@
+# 学习笔记
+
+- 1.JAVA基础
+  - JAVA容器
+    * [1.ArrayList与LinkedList](1.JAVA基础/JAVA容器/1.ArrayList与LinkedList.md)
+    * [2.HashTable](1.JAVA基础/JAVA容器/2.HashTable.md)
+    * [3.HashMap](1.JAVA基础/JAVA容器/3.HashMap.md)
+    * [4.ConcurrentHashMap](1.JAVA基础/JAVA容器/4.ConcurrentHashMap.md)
+  - JVM
+    * [1.深入理解JVM](1.JAVA基础/JVM/1.深入理解JVM.md)
+    * [2.JVM常见问题](1.JAVA基础/JVM/2.JVM常见问题.md)
+  - 并发编程
+    * [1.JMM内存模型和volatile](1.JAVA基础/并发编程/1.JMM内存模型和volatile.md)
+    * [2.CAS](1.JAVA基础/并发编程/2.CAS.md)
+    * [3.锁](1.JAVA基础/并发编程/3.锁.md)
+    * [4.CountDownLatch、CyclicBarrier、Semaphore](1.JAVA基础/并发编程/4.CountDownLatch、CyclicBarrier、Semaphore.md)
+    * [5.AQS原理以及AQS同步组件](1.JAVA基础/并发编程/5.AQS原理以及AQS同步组件.md)
+    * [6.阻塞队列](1.JAVA基础/并发编程/6.阻塞队列.md)
+    * [7.Synchronized与锁升级](1.JAVA基础/并发编程/7.Synchronized与锁升级.md)
+    * [8.Synchronized与ReentrantLock](1.JAVA基础/并发编程/8.Synchronized与ReentrantLock.md)
+    * [9.ThreadPoolExecutor](1.JAVA基础/并发编程/9.ThreadPoolExecutor.md)
+    * [x.DeadLock](1.JAVA基础/并发编程/x.DeadLock.md)
+    * [x1.ThreadLocal](1.JAVA基础/并发编程/x1.ThreadLocal.md)
+- 2.分布式
+  * [1.分布式事务](2.分布式/1.分布式事务.md)
+- 3.Mysql原理
+  * [1.索引失效和索引优化](3.Mysql原理/1.索引失效和索引优化.md)
+  * [2.B+Tree与Innodb](3.Mysql原理/2.B+Tree与Innodb.md)
+  * [3.Mysql如何实现事务](3.Mysql原理/3.Mysql如何实现事务.md)
+  * [4.MVCC](3.Mysql原理/4.MVCC.md)
+  * [5.Mysql脏读、不可重复读、幻读和MVCC](3.Mysql原理/5.Mysql脏读、不可重复读、幻读和MVCC.md)
+  * [6.Mysql锁](3.Mysql原理/6.Mysql锁.md)
+  * [7.Explain](3.Mysql原理/7.Explain.md)
+- 4.Redis原理
+  - 常见问题
+    * [1.热key击穿穿透雪崩](4.Redis原理/常见问题/1.热key击穿穿透雪崩.md)
+    * [2.redis分布式锁](4.Redis原理/常见问题/2.redis分布式锁.md)
+    * [3.如何保证缓存一致性](4.Redis原理/常见问题/3.如何保证缓存一致性.md)
+    * [4.过期删除策略和内存淘汰策略](4.Redis原理/常见问题/4.过期删除策略和内存淘汰策略.md)
+  - 数据结构
+    * [1.简单动态字符串](4.Redis原理/数据结构/1.简单动态字符串.md)
+    * [2.链表](4.Redis原理/数据结构/2.链表.md)
+    * [3.字典](4.Redis原理/数据结构/3.字典.md)
+    * [4.跳跃表](4.Redis原理/数据结构/4.跳跃表.md)
+    * [5.整数集合](4.Redis原理/数据结构/5.整数集合.md)
+    * [6.压缩列表](4.Redis原理/数据结构/6.压缩列表.md)
+    * [7.对象](4.Redis原理/数据结构/7.对象.md)
+  - 核心设计
+    * [1.redis核心设计概述](4.Redis原理/核心设计/1.redis核心设计概述.md)
+    * [2.redis为什么这么快](4.Redis原理/核心设计/2.redis为什么这么快.md)
+    * [3.AOF日志](4.Redis原理/核心设计/3.AOF日志.md)
+    * [4.RDB日志](4.Redis原理/核心设计/4.RDB日志.md)
+    * [5.主从库如何保证一致](4.Redis原理/核心设计/5.主从库如何保证一致.md)
+    * [6.哨兵机制](4.Redis原理/核心设计/6.哨兵机制.md)
+    * [7.哨兵集群](4.Redis原理/核心设计/7.哨兵集群.md)
+- 5.MQ
+  - Kafka
+    * [1.kafka](5.MQ/kafka/1.kafka.md)
+  * [1.mq选型](5.MQ/1.mq选型.md)
+  * [2.如何保证mq的高可用](5.MQ/2.如何保证mq的高可用.md)
+  * [3.事务性消息](5.MQ/3.事务性消息.md)
+- 6.Spring
+  * [1.Spring的Bean的生命周期](6.Spring/1.Spring的Bean的生命周期.md)
+  * [2.Spring的Aop原理](6.Spring/2.Spring的Aop原理.md)
+  * [3.三级缓存解决循环依赖](6.Spring/3.三级缓存解决循环依赖.md)
+- 7.Netty
+  * [1.传统IO](7.Netty/1.传统IO.md)
+  * [2.Netty实战](7.Netty/2.Netty实战.md)
+  * [3.Netty实现rpc](7.Netty/3.Netty实现rpc.md)
+- 8.大数据相关
+  - Flink
+    * [1.docker部署flink](8.大数据相关/flink/1.docker部署flink.md)
+    * [2.运行时架构](8.大数据相关/flink/2.运行时架构.md)
+  - Hive
+    * [hive基础](8.大数据相关/hive/hive基础.md)
+  - 实时数仓
+    * [随记1](8.大数据相关/实时数仓/随记1.md)
+- x.问题总结
+  * [多线程使用不当OOM排查](x.问题总结/多线程使用不当OOM排查.md)
+  * [父子线程公用线程池线上事故](x.问题总结/父子线程公用线程池线上事故.md)
